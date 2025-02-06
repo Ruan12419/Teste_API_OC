@@ -1,0 +1,7 @@
+{
+    "Pagamento": {
+        "Cartao": "Pagamento via Cartão efetuado com sucesso!", 
+        "Pix": "Pagamento via Pix efetuado com sucesso!", 
+        "Boleto": "Pagamento via Boleto efetuado com sucesso!"
+    }
+}

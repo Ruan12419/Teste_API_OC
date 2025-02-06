@@ -1,0 +1,14 @@
+{
+    "name": "bot-colmeia", 
+    "version": "1.0.0", 
+    "description": "API para o BOT de teste da plataforma Colmeia", 
+    "main": "app.js", 
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1" 
+    }, 
+    "author": "Ruan Lima", 
+    "license": "ISC", 
+    "dependencies": {
+        "express": "^4.21.2"
+    }
+}
