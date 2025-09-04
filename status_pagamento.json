@@ -1,0 +1,10 @@
+{   
+    "pending": "pending",
+    "processing": "processing",
+    "completed": "completed",
+    "canceled": "canceled",
+    "expired": "expired",
+    "failed": "failed",
+    "refunded": "refunded",
+    "chargedBack": "charged_back"
+}
