@@ -157,7 +157,7 @@ app.post("/efetuarPagamento", (req, res) => {
     if (isPagamentoEfetuado) {
         const {timer, ...pagamentoFinal} = pagamentos_efetuados[produto.idProduct]
         const transaction = {
-          externalGatewayId: 'abc123gateway-id_RLS_API_TEST',
+          externalGatewayId: `gw_${Math.random().toString(36).substring(2, 10)}_${Date.now()}`,
         };
         res.status(200).json({pagador: pagador, produto: pagamentoFinal, transaction: transaction })
     } else {
