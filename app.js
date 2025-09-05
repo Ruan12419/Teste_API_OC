@@ -195,6 +195,12 @@ app.get("/alteraStatus/:id/:status", (req, res) => {
     res.status(200).json({pagamento: pagamentoSemTimer,  statusAntigo: statusAntigo, novoStatus: pagamentoSemTimer.status, statusRequisicao: statusBase})
 })
 
+app.get("/excluiPagamentos", (req, res) => {
+    pagamentos_efetuados = {};
+
+    res.status(200).json({data: "Todos os registros de pagamento foram excluídos!"});
+});
+
 app.listen(3000, () => {
     console.log("Está rodando!");
 });
