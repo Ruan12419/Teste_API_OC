@@ -155,7 +155,7 @@ app.post("/efetuarPagamento", (req, res) => {
         res.status(400).json({error: `Valor inválido! Você deve pagar ${pagamentoSemTimer.totalPrice}`})
     }
     if (isPagamentoEfetuado) {
-        const {timer, ...pagamentoFinal} = pagamentos_efetuados[produto.id]
+        const {timer, ...pagamentoFinal} = pagamentos_efetuados[produto.idProduct]
         const transaction = {
           externalGatewayId: 'abc123gateway-id_RLS_API_TEST',
         };
