@@ -150,7 +150,7 @@ app.post("/efetuarPagamento", (req, res) => {
     console.log("No de efetuar:")
     console.log(pagamentoSemTimer)
     if (pagador.valor_pago === pagamentoSemTimer.totalPrice) {
-        isPagamentoEfetuado = atualizarStatusPagamento(pagamentoSemTimer.id, "completed");
+        isPagamentoEfetuado = atualizarStatusPagamento(pagamentoSemTimer.id, status_pagamento.processing);
     } else {
         res.status(400).json({error: `Valor inválido! Você deve pagar ${pagamentoSemTimer.totalPrice}`})
     }
