@@ -145,7 +145,7 @@ app.post("/criarPagamento", (req, res) => {
 
 app.post("/efetuarPagamento", (req, res) => {
     const { pagador, produto } = req.body
-    const {timer, ...pagamentoSemTimer} = pagamentos_efetuados[produto.id]
+    const {timer, ...pagamentoSemTimer} = pagamentos_efetuados[produto.idProduct]
     let isPagamentoEfetuado = false;
     console.log("No de efetuar:")
     console.log(pagamentoSemTimer)
