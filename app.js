@@ -156,7 +156,10 @@ app.post("/efetuarPagamento", (req, res) => {
     }
     if (isPagamentoEfetuado) {
         const {timer, ...pagamentoFinal} = pagamentos_efetuados[produto.id]
-        res.status(200).json({pagador: pagador, produto: pagamentoFinal})
+        const transaction = {
+          externalGatewayId: 'abc123gateway-id_RLS_API_TEST',
+        };
+        res.status(200).json({pagador: pagador, produto: pagamentoFinal, transaction: transaction })
     } else {
         res.status(400).json({error: "Não foi possível efetuar o pagamento!"})
     }
