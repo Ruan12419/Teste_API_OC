@@ -1,14 +1,21 @@
 {
-    "name": "bot-colmeia", 
-    "version": "1.0.0", 
-    "description": "API para o BOT de teste da plataforma Colmeia", 
-    "main": "app.js", 
+    "name": "bot-colmeia",
+    "version": "2.0.0",
+    "description": "API para o BOT de teste da plataforma Colmeia",
+    "main": "server.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1" 
-    }, 
-    "author": "Ruan Lima", 
-    "license": "ISC", 
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon server.js"
+    },
+    "author": "Ruan Lima",
+    "license": "ISC",
     "dependencies": {
-        "express": "^4.21.2"
+        "express": "^4.21.2",
+        "joi": "^18.0.1",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.10"
     }
 }
