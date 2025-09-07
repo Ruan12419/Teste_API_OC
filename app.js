@@ -157,30 +157,10 @@ app.post("/criarPagamento", (req, res) => {
 
 app.post("/efetuarPagamento", (req, res) => {
     const { pagador, produto } = req.body
-<<<<<<< HEAD
     const pagamento = pagamentos_efetuados[produto.id]
 
     if (!pagamento) {
         return res.status(404).json({ error: "Pagamento não encontrado." });
-=======
-    const {timer, ...pagamentoSemTimer} = pagamentos_efetuados[produto.idProduct]
-    let isPagamentoEfetuado = false;
-    console.log("No de efetuar:")
-    console.log(pagamentoSemTimer)
-    if (pagador.valor_pago === pagamentoSemTimer.totalPrice) {
-        isPagamentoEfetuado = atualizarStatusPagamento(pagamentoSemTimer.id, status_pagamento.processing);
-    } else {
-        res.status(400).json({error: `Valor inválido! Você deve pagar ${pagamentoSemTimer.totalPrice}`})
-    }
-    if (isPagamentoEfetuado) {
-        const {timer, ...pagamentoFinal} = pagamentos_efetuados[produto.idProduct]
-        const transaction = {
-          externalGatewayId: `gw_${Math.random().toString(36).substring(2, 10)}_${Date.now()}`,
-        };
-        res.status(200).json({pagador: pagador, produto: pagamentoFinal, transaction: transaction })
-    } else {
-        res.status(400).json({error: "Não foi possível efetuar o pagamento!"})
->>>>>>> 43fcbca41e9c49b2cda23a2790bc2faac134c4fc
     }
 
     pagamento.status = status_pagamento.processing;
@@ -243,7 +223,6 @@ app.get("/alteraStatus/:id/:status", (req, res) => {
     res.status(200).json({pagamento: pagamentoSemTimer,  statusAntigo: statusAntigo, novoStatus: pagamentoSemTimer.status, statusRequisicao: statusBase})
 })
 
-<<<<<<< HEAD
 app.post("/cancelarPagamento/:id", (req, res) => {
     const id = req.params.id;
     const pagamento = pagamentos_efetuados[id];
@@ -316,14 +295,6 @@ app.get("/checkout/:id", (req, res) => {
 
 
 
-=======
-app.get("/excluiPagamentos", (req, res) => {
-    pagamentos_efetuados = {};
-
-    res.status(200).json({data: "Todos os registros de pagamento foram excluídos!"});
-});
-
->>>>>>> 43fcbca41e9c49b2cda23a2790bc2faac134c4fc
 app.listen(3000, () => {
     console.log("Está rodando!");
 });
