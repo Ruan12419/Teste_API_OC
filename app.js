@@ -1,16 +1,21 @@
 function atualizarStatusPagamento(idPagamento, novoStatus) {
-    console.log(pagamentos_efetuados[idPagamento]);
-    let statusAntigo = pagamentos_efetuados[idPagamento].status;
+    const pagamento = pagamentos_efetuados[idPagamento];
+    if (!pagamento) return { statusAntigo: null, isPagamentoEfetuado: false };
+
+    let statusAntigo = pagamento.status;
     let isPagamentoEfetuado = false;
-    if (novoStatus in status_pagamento) {
-        pagamentos_efetuados[idPagamento].status = novoStatus;
-        statusBase = "Completa"
-        if (novoStatus === "completed") isPagamentoEfetuado = true;
+
+    if (Object.values(status_pagamento).includes(novoStatus)) {
+        pagamento.status = novoStatus;
+        statusBase = "Atualizado com sucesso";
+        if (novoStatus === status_pagamento.completed) isPagamentoEfetuado = true;
     } else {
-        statusBase = "failed"
+        statusBase = "Status inválido";
     }
-    return { statusAntigo, isPagamentoEfetuado }
+
+    return { statusAntigo, isPagamentoEfetuado };
 }
+
 
 
 
@@ -137,31 +142,55 @@ app.post("/criarPagamento", (req, res) => {
         }
     }, pagamento.due_time);
 
+    const gatewayData = {
+        externalGatewayId: pagamento.id,
+        urlCheckout: `http://localhost:3000/checkout/${pagamento.id}`, 
+        pixCode: "000201010211...",
+    };
+
     res.status(200).json({
         message: `Pagamento ${pagamento.id} iniciado. Aguardando confirmação.`,
-        id: pagamento.id
+        id: pagamento.id,
+        gatewayData
     });
 });
 
 app.post("/efetuarPagamento", (req, res) => {
     const { pagador, produto } = req.body
-    const {timer, ...pagamentoSemTimer} = pagamentos_efetuados[produto.id]
-    let isPagamentoEfetuado = false;
-    console.log("No de efetuar:")
-    console.log(pagamentoSemTimer)
-    if (pagador.valor_pago === pagamentoSemTimer.totalPrice) {
-        isPagamentoEfetuado = atualizarStatusPagamento(pagamentoSemTimer.id, "completed");
-    } else {
-        res.status(400).json({error: `Valor inválido! Você deve pagar ${pagamentoSemTimer.totalPrice}`})
-    }
-    if (isPagamentoEfetuado) {
-        const {timer, ...pagamentoFinal} = pagamentos_efetuados[produto.id]
-        res.status(200).json({pagador: pagador, produto: pagamentoFinal})
-    } else {
-        res.status(400).json({error: "Não foi possível efetuar o pagamento!"})
+    const pagamento = pagamentos_efetuados[produto.id]
+
+    if (!pagamento) {
+        return res.status(404).json({ error: "Pagamento não encontrado." });
     }
 
-})
+    pagamento.status = status_pagamento.processing;
+
+    const totalEsperado = pagamento.totalPrice;
+
+    if (pagador.valor_pago === totalEsperado) {
+        setTimeout(() => {
+            pagamento.status = status_pagamento.completed;
+            clearTimeout(pagamento.timer);
+            console.log(`Pagamento ${produto.id} concluído com sucesso.`);
+        }, 10000); 
+
+        res.status(200).json({ message: "Pagamento em processamento." });
+    } else {
+        pagamento.status = status_pagamento.failed;
+        res.status(400).json({ error: `Valor inválido! Você deve pagar ${totalEsperado}` });
+    }
+});
+
+app.get("/polling/:id", (req, res) => {
+    const pagamento = pagamentos_efetuados[req.params.id];
+
+    if (!pagamento) {
+        return res.status(404).json({ error: "Pagamento não encontrado." });
+    }
+
+    res.status(200).json({ status: pagamento.status });
+});
+
 
 app.get("/payment/:id", (req, res) => {
     const pagamento = pagamentos_efetuados[req.params.id]
@@ -176,7 +205,6 @@ app.get("/payment/:id", (req, res) => {
 app.get("/statusPayment/:id", (req, res) => {
     let idPagamento = req.params.id
 
-    // status_pagamento[statusBase];
     const pagamento = pagamentos_efetuados[idPagamento]
     if (!pagamento) {
         res.status(400).json({error: "Pagamento não existe!"})
@@ -194,6 +222,78 @@ app.get("/alteraStatus/:id/:status", (req, res) => {
 
     res.status(200).json({pagamento: pagamentoSemTimer,  statusAntigo: statusAntigo, novoStatus: pagamentoSemTimer.status, statusRequisicao: statusBase})
 })
+
+app.post("/cancelarPagamento/:id", (req, res) => {
+    const id = req.params.id;
+    const pagamento = pagamentos_efetuados[id];
+
+    if (!pagamento) {
+        return res.status(404).json({ error: "Pagamento não encontrado." });
+    }
+
+    if (pagamento.status === status_pagamento.completed) {
+        return res.status(400).json({ error: "Pagamento já foi concluído. Não pode ser cancelado." });
+    }
+
+    clearTimeout(pagamento.timer);
+    atualizarStatusPagamento(id, status_pagamento.canceled);
+
+    res.status(200).json({ message: `Pagamento ${id} cancelado.` });
+});
+
+app.post("/reembolsarPagamento/:id", (req, res) => {
+    const id = req.params.id;
+    const pagamento = pagamentos_efetuados[id];
+
+    if (!pagamento || pagamento.status !== status_pagamento.completed) {
+        return res.status(400).json({ error: "Somente pagamentos COMPLETED podem ser reembolsados." });
+    }
+
+    atualizarStatusPagamento(id, status_pagamento.refunded);
+
+    res.status(200).json({ message: `Pagamento ${id} reembolsado.` });
+});
+
+app.post("/contestarPagamento/:id", (req, res) => {
+    const id = req.params.id;
+    const pagamento = pagamentos_efetuados[id];
+
+    if (!pagamento || pagamento.status !== status_pagamento.completed) {
+        return res.status(400).json({ error: "Somente pagamentos COMPLETED podem ser contestados." });
+    }
+
+    atualizarStatusPagamento(id, status_pagamento.chargedBack);
+
+    res.status(200).json({ message: `Pagamento ${id} contestado via chargeback.` });
+});
+
+app.get("/todosPagamentos", (req, res) => {
+    const pagamentosList = Object.entries(pagamentos_efetuados).map(([id, pagamento]) => {
+        const { timer, ...dados } = pagamento;
+        return dados;
+    });
+    res.status(200).json(pagamentosList);
+});
+
+app.get("/checkout/:id", (req, res) => {
+    const pagamento = pagamentos_efetuados[req.params.id];
+
+    if (!pagamento) {
+        return res.status(404).send("<h1>Pagamento não encontrado</h1>");
+    }
+
+    
+    res.send(`
+        <h1>Checkout do pagamento ${pagamento.id}</h1>
+        <p>Produto: ${pagamento.product_name}</p>
+        <p>Quantidade: ${pagamento.quantity}</p>
+        <p>Preço total: R$${pagamento.totalPrice.toFixed(2)}</p>
+        <p>Status atual: ${pagamento.status}</p>
+        <p>Aguarde o pagamento ser processado.</p>
+    `);
+});
+
+
 
 app.listen(3000, () => {
     console.log("Está rodando!");
