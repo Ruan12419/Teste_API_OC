@@ -112,7 +112,7 @@ exports.criarPagamento = (req, res) => {
 
   const gatewayData = {
     externalGatewayId: pagamento.id,
-    urlCheckout: `http://localhost:3000/checkout/${pagamento.id}`,
+    urlCheckout: `https://teste-api-oc.onrender.com/checkout/${pagamento.id}`,
     pixCode: "000201010211...",
   };
 
