@@ -117,20 +117,17 @@ app.post("/payment", (req, res) => {
 })
 
 app.post("/criarPagamento", (req, res) => {
-    const pagamento = req.body;
+    const requestBody = req.body;
+    const  {items, ...additional_info} = requestBody;
+    const pagamento = requestBody.items;
 
     if (!pagamento.id || !pagamento.due_time) {
         return res.status(400).json({ error: "ID e due_time são obrigatórios." });
     }
 
-    pagamentos_efetuados[pagamento.id] = {
-        id: pagamento.id, 
+    pagamentos_efetuados[pagamento.id] = {...pagamento, 
         status: status_pagamento.pending,
-        product_name: pagamento.product_name,
-        price: pagamento.price,
-        quantity: pagamento.quantity,
-        start_time: pagamento.start_time,
-        due_time: pagamento.due_time
+        additional_info: additional_info, 
     };
 
     pagamentos_efetuados[pagamento.id].totalPrice = (pagamento.price * pagamento.quantity)
@@ -157,7 +154,7 @@ app.post("/criarPagamento", (req, res) => {
 
 app.post("/efetuarPagamento", (req, res) => {
     const { pagador, produto } = req.body
-    const pagamento = pagamentos_efetuados[produto.id]
+    const pagamento = pagamentos_efetuados[produto.idProduct]
 
     if (!pagamento) {
         return res.status(404).json({ error: "Pagamento não encontrado." });
@@ -171,10 +168,13 @@ app.post("/efetuarPagamento", (req, res) => {
         setTimeout(() => {
             pagamento.status = status_pagamento.completed;
             clearTimeout(pagamento.timer);
-            console.log(`Pagamento ${produto.id} concluído com sucesso.`);
-        }, 10000); 
-
-        res.status(200).json({ message: "Pagamento em processamento." });
+            console.log(`Pagamento ${produto.idProduct} concluído com sucesso.`);
+        }, 10000);
+        const {timer, ...pagamentoFinal} = pagamento;
+        const transaction = {
+          externalGatewayId: `gw_${Math.random().toString(36).substring(2, 10)}_${Date.now()}`,
+        };
+        res.status(200).json({pagador: pagador, produto: pagamentoFinal, transaction: transaction })
     } else {
         pagamento.status = status_pagamento.failed;
         res.status(400).json({ error: `Valor inválido! Você deve pagar ${totalEsperado}` });
@@ -293,6 +293,11 @@ app.get("/checkout/:id", (req, res) => {
     `);
 });
 
+app.get("/excluiPagamentos", (req, res) => {
+    pagamentos_efetuados = {};
+
+    res.status(200).json({data: "Todos os registros de pagamento foram excluídos!"});
+});
 
 
 app.listen(3000, () => {
