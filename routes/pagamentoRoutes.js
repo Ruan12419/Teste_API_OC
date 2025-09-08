@@ -32,7 +32,7 @@ router.get("/pagamento/:tipo", controller.getTipoPagamento);
  *       400:
  *         description: Dados inválidos
  */
-router.post("/criarPagamento", validate(criarPagamentoSchema), controller.criarPagamento);
+router.post("/criarPagamento", controller.criarPagamento);
 
 /**
  * @swagger
@@ -52,7 +52,7 @@ router.post("/criarPagamento", validate(criarPagamentoSchema), controller.criarP
  *       400:
  *         description: Valor incorreto ou dados inválidos
  */
-router.post("/efetuarPagamento", validate(efetuarPagamentoSchema), controller.efetuarPagamento);
+router.post("/efetuarPagamento", controller.efetuarPagamento);
 
 
 router.get("/polling/:id", controller.pollingStatus);
