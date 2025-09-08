@@ -235,12 +235,12 @@ exports.reembolsarPagamento = (req, res) => {
 exports.contestarPagamento = (req, res) => {
   const id = req.params.id;
   const pagamento = pagamentos_efetuados[id];
-
+  
   if (!pagamento || pagamento.status !== status_pagamento.completed) {
     return res.status(400).json({ error: "Somente pagamentos COMPLETED podem ser contestados." });
   }
-
-  atualizarStatusPagamento(id, status_pagamento.charged_back);
+  
+  atualizarStatusPagamento(id, status_pagamento.chargedBack);
   res.status(200).json({ message: `Pagamento ${id} contestado via chargeback.` });
 };
 
