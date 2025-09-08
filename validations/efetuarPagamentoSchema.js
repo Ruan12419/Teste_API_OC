@@ -2,34 +2,34 @@ const Joi = require("joi");
 
 const efetuarPagamentoSchema = Joi.object({
   pagador: Joi.object({
-    first_name: Joi.string().required(),
-    last_name: Joi.string().required(),
+    first_name: Joi.string(),
+    last_name: Joi.string(),
     phone: Joi.object({
-      area_code: Joi.number().integer().required(),
-      number: Joi.string().required()
+      area_code: Joi.number().integer(),
+      number: Joi.string()
     }),
     valor_pago: Joi.number(),
     address: Joi.object({
-      zip_code: Joi.string().required(),
-      street_name: Joi.string().required(),
-      street_number: Joi.number().integer().required(),
+      zip_code: Joi.string(),
+      street_name: Joi.string(),
+      street_number: Joi.number().integer(),
       neighborhood: Joi.any().optional(),
-      city: Joi.number().required(),
-      federal_unit: Joi.number().required()
+      city: Joi.number(),
+      federal_unit: Joi.number()
     }),
     payer: Joi.object({
-      entity_type: Joi.string().required(),
-      type: Joi.string().required(),
-      email: Joi.string().email().required(),
+      entity_type: Joi.string(),
+      type: Joi.string(),
+      email: Joi.string().email(),
       identification: Joi.object({
-        type: Joi.string().required(),
-        number: Joi.string().required()
-      }).required()
+        type: Joi.string(),
+        number: Joi.string()
+      })
     })
-  }).required(),
+  }),
   produto: Joi.object({
-    idProduct: Joi.string().required()
-  }).required()
+    idProduct: Joi.string()
+  })
 });
 
 module.exports = efetuarPagamentoSchema;
