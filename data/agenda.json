@@ -1,0 +1,71 @@
+[
+  {
+    "especialidade_buscada": "cardiologia",
+    "disponibilidade": true,
+    "mensagem_aviso": null,
+    "slots": [
+      {
+        "id_slot": "SLOT_101",
+        "medico": "Dr. Roberto Mendes",
+        "data": "2025-12-10",
+        "horario": "14:00",
+        "local": "Telemedicina App"
+      },
+      {
+        "id_slot": "SLOT_102",
+        "medico": "Dra. Julia Costa",
+        "data": "2025-12-10",
+        "horario": "16:30",
+        "local": "Telemedicina App"
+      },
+      {
+        "id_slot": "SLOT_103",
+        "medico": "Dr. Roberto Mendes",
+        "data": "2025-12-11",
+        "horario": "09:00",
+        "local": "Presencial - Unidade Centro"
+      }
+    ]
+  },
+  {
+    "especialidade_buscada": "dermatologia",
+    "disponibilidade": false,
+    "mensagem_aviso": "Agenda lotada para os próximos 30 dias.",
+    "slots": []
+  },
+  {
+    "especialidade_buscada": "ortopedia",
+    "disponibilidade": true,
+    "mensagem_aviso": "Último horário da semana.",
+    "slots": [
+      {
+        "id_slot": "SLOT_201",
+        "medico": "Dr. Fernando Pires",
+        "data": "2025-12-12",
+        "horario": "10:00",
+        "local": "Presencial - Unidade Sul"
+      }
+    ]
+  },
+  {
+    "especialidade_buscada": "nutricao",
+    "disponibilidade": true,
+    "mensagem_aviso": "Atendimento exclusivo online.",
+    "slots": [
+      {
+        "id_slot": "SLOT_301",
+        "medico": "Nutri. Ana Clara",
+        "data": "2025-12-11",
+        "horario": "13:00",
+        "local": "Telemedicina App"
+      },
+      {
+        "id_slot": "SLOT_302",
+        "medico": "Nutri. Ana Clara",
+        "data": "2025-12-11",
+        "horario": "15:00",
+        "local": "Telemedicina App"
+      }
+    ]
+  }
+]

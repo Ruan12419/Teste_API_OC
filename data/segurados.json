@@ -1,0 +1,81 @@
+[
+  {
+    "cpf": "111.222.333-44",
+    "telefone": "5511999990001",
+    "id_segurado": "882910-X",
+    "nome": "Ana Silva",
+    "plano": "GOLD",
+    "status_financeiro": "ativo",
+    "segmentacao": "vip",
+    "dependentes": [
+      {
+        "nome": "Pedro Silva",
+        "idade": 8
+      }
+    ],
+    "ultima_interacao": "2023-10-25T14:30:00Z"
+  },
+  {
+    "cpf": "222.333.444-55",
+    "telefone": "5511999990002",
+    "id_segurado": "991020-Y",
+    "nome": "Carlos Souza",
+    "plano": "BASIC",
+    "status_financeiro": "suspenso",
+    "segmentacao": "standard",
+    "link_pagamento": "https://mediflow.com/pagar/991020",
+    "dependentes": [],
+    "ultima_interacao": "2023-09-10T09:15:00Z"
+  },
+  {
+    "cpf": "333.444.555-66",
+    "telefone": "5521988887777",
+    "id_segurado": "773829-Z",
+    "nome": "Mariana Costa",
+    "plano": "GOLD",
+    "status_financeiro": "ativo",
+    "segmentacao": "vip",
+    "dependentes": [],
+    "ultima_interacao": null
+  },
+  {
+    "cpf": "444.555.666-77",
+    "telefone": "5531977776666",
+    "id_segurado": "112233-A",
+    "nome": "Roberto Santos",
+    "plano": "PLATINUM",
+    "status_financeiro": "ativo",
+    "segmentacao": "black",
+    "dependentes": [
+      {
+        "nome": "Luciana Santos",
+        "idade": 35
+      },
+      {
+        "nome": "Gabriel Santos",
+        "idade": 10
+      },
+      {
+        "nome": "Sofia Santos",
+        "idade": 6
+      }
+    ],
+    "ultima_interacao": "2023-12-01T18:45:00Z"
+  },
+  {
+    "cpf": "555.666.777-88",
+    "telefone": "5541966665555",
+    "id_segurado": "445566-B",
+    "nome": "Julia Pereira",
+    "plano": "BASIC",
+    "status_financeiro": "ativo",
+    "segmentacao": "standard",
+    "dependentes": [
+      {
+        "nome": "Marcos Pereira",
+        "idade": 65
+      }
+    ],
+    "ultima_interacao": "2023-05-20T11:00:00Z"
+  }
+]

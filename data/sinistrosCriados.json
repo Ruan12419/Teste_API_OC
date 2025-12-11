@@ -1,0 +1,113 @@
+[
+  {
+    "protocolo": "#SINI-2025-1024",
+    "status": "em_analise",
+    "data_abertura": "2025-12-08T10:00:00.000Z",
+    "ultima_atualizacao": "2025-12-08T10:00:00.000Z",
+    "descricao": "Reembolso consulta dermatologista particular",
+    "cliente": {
+      "nome": "Ana Silva",
+      "cpf": "111.222.333-44",
+      "telefone": "5511999990001",
+      "email": "ana.silva@email.com"
+    },
+    "anexos": {
+      "quantidade": 1,
+      "arquivos": [
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
+      ]
+    },
+    "historico": [
+      {
+        "data": "2025-12-08T10:00:00.000Z",
+        "mensagem": "Solicitação aberta via Bot WhatsApp"
+      }
+    ]
+  },
+  {
+    "protocolo": "#SINI-2025-8842",
+    "status": "aprovado",
+    "data_abertura": "2025-11-20T14:30:00.000Z",
+    "ultima_atualizacao": "2025-11-22T09:00:00.000Z",
+    "descricao": "Exames laboratoriais de rotina",
+    "cliente": {
+      "nome": "Ana Silva",
+      "cpf": "111.222.333-44",
+      "telefone": "5511999990001",
+      "email": "ana.silva@email.com"
+    },
+    "anexos": {
+      "quantidade": 2,
+      "arquivos": [
+        "data:application/pdf;base64,JVBERi0xLjQKJeLj...",
+        "data:application/pdf;base64,JVBERi0xLjQKJeLj..."
+      ]
+    },
+    "historico": [
+      {
+        "data": "2025-11-20T14:30:00.000Z",
+        "mensagem": "Solicitação aberta via Bot WhatsApp"
+      },
+      {
+        "data": "2025-11-22T09:00:00.000Z",
+        "mensagem": "Pagamento agendado. Status alterado para Aprovado."
+      }
+    ]
+  },
+  {
+    "protocolo": "#SINI-2025-5599",
+    "status": "pendente_documentacao",
+    "data_abertura": "2025-12-09T18:15:00.000Z",
+    "ultima_atualizacao": "2025-12-10T08:00:00.000Z",
+    "descricao": "Fisioterapia pós-cirúrgica",
+    "cliente": {
+      "nome": "Carlos Souza",
+      "cpf": "222.333.444-55",
+      "telefone": "5511999990002",
+      "email": "carlos.souza@email.com"
+    },
+    "anexos": {
+      "quantidade": 1,
+      "arquivos": [
+        "data:image/jpeg;base64,/9j/4AAQSkZJRgABA..."
+      ]
+    },
+    "historico": [
+      {
+        "data": "2025-12-09T18:15:00.000Z",
+        "mensagem": "Solicitação aberta via Bot WhatsApp"
+      },
+      {
+        "data": "2025-12-10T08:00:00.000Z",
+        "mensagem": "Analista solicitou laudo médico atualizado."
+      }
+    ]
+  },
+  {
+    "protocolo": "#SINI-2025-4142",
+    "status": "em_analise",
+    "data_abertura": "2025-12-11T00:46:28.592Z",
+    "ultima_atualizacao": "2025-12-11T00:46:28.592Z",
+    "descricao": "Reembolso consulta dermatologista particular",
+    "cliente": {
+      "nome": "Ana Silva",
+      "cpf": "111.222.333-44",
+      "telefone": "5511999990001",
+      "email": "ana.silva@email.com"
+    },
+    "anexos": {
+      "quantidade": 3,
+      "arquivos": [
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
+      ]
+    },
+    "historico": [
+      {
+        "data": "2025-12-11T00:46:28.592Z",
+        "mensagem": "Solicitação aberta via Bot WhatsApp"
+      }
+    ]
+  }
+]

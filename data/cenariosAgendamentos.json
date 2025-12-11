@@ -1,0 +1,31 @@
+[
+  {
+    "cenario": "sucesso",
+    "http_status": 201,
+    "sucesso": true,
+    "protocolo": "#AGD-8842",
+    "mensagem": "Agendamento confirmado com sucesso.",
+    "detalhes": {
+      "medico": "Dr. Roberto Mendes",
+      "data": "2025-12-10",
+      "horario": "14:00",
+      "unidade": "Telemedicina App"
+    }
+  },
+  {
+    "cenario": "erro_vaga_ocupada",
+    "http_status": 409,
+    "sucesso": false,
+    "protocolo": null,
+    "mensagem": "Erro: Este horário acabou de ser reservado por outro paciente.",
+    "acao_sugerida": "listar_novamente"
+  },
+  {
+    "cenario": "erro_sistema",
+    "http_status": 500,
+    "sucesso": false,
+    "protocolo": null,
+    "mensagem": "Instabilidade momentânea no sistema de agendas.",
+    "acao_sugerida": "transbordo_humano"
+  }
+]

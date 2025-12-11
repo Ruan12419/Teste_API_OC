@@ -1,0 +1,31 @@
+[
+  {
+    "protocolo": "#AGD-8604",
+    "status": "confirmado",
+    "data_criacao": "2025-12-10T23:49:17.415Z",
+    "cliente_dados": {
+      "cpf": "111.222.333-44",
+      "telefone": "5511999990001",
+      "id_segurado": "882910-X",
+      "nome": "Ana Silva",
+      "plano": "GOLD",
+      "status_financeiro": "ativo",
+      "segmentacao": "vip",
+      "dependentes": [
+        {
+          "nome": "Pedro Silva",
+          "idade": 8
+        }
+      ],
+      "ultima_interacao": "2023-10-25T14:30:00Z"
+    },
+    "slot_dados": {
+      "id_slot": "SLOT_101",
+      "medico": "Dr. Roberto Mendes",
+      "data": "2025-12-10",
+      "horario": "14:00",
+      "local": "Telemedicina App",
+      "especialidade_original": "cardiologia"
+    }
+  }
+]
