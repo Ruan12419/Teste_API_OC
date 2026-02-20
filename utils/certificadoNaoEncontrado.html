@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segurina - Documento não encontrado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --bg: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            max-width: 450px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .icon {
+            font-size: 64px;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-top: 1rem;
+        }
+
+        .id-badge {
+            background: #ecf0f1;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background-color: #1a252f;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icon">🔍</div>
+        <h1>Ops! Certificado não localizado</h1>
+        <p>Não conseguimos encontrar o documento sob o número: <br>
+            <span class="id-badge">#{{ID}}</span>
+        </p>
+        <p>Verifique se o link está correto ou se o processamento do seguro já foi concluído.</p>
+
+        <a href="https://www.segurina.com.br" class="btn">Ir para o site oficial</a>
+
+        <div class="footer">
+            Segurina S.A. | Compliance & Tecnologia
+        </div>
+    </div>
+</body>
+
+</html>

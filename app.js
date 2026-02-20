@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const pagamentoRoutes = require('./routes/pagamentoRoutes');
 const clinicaRoutes = require('./routes/clinicaRoutes');
+const segurinaRoutes = require('./routes/segurinaRoutes');
 
 const swaggerDocs = require("./swagger/swaggerDocs");
 
@@ -26,8 +27,12 @@ global.agendamentos = JSON.parse(fs.readFileSync(agendamentosPath, 'utf8'));
 global.sinistros = JSON.parse(fs.readFileSync(sinistrosPath, 'utf8'));
 global.statusBase = "pending";
 
+global.catalogoPath = "./data/catalogo.json"
+global.catalogo = JSON.parse(fs.readFileSync(catalogoPath, 'utf8'));
+
 app.use('/', pagamentoRoutes);
 app.use('/clinica/', clinicaRoutes);
+app.use('/segurina/', segurinaRoutes);
 
 swaggerDocs(app);
 

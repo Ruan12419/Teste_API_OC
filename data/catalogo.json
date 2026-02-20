@@ -1,0 +1,1229 @@
+{
+    "catalogVersion": "1.0",
+    "currency": "BRL",
+    "billing": {
+        "frequency": "monthly",
+        "channel": "whatsapp",
+        "shelfProduct": true
+    },
+    "insuranceTypes": [
+        {
+            "typeId": "RESIDENCIAL",
+            "typeName": "Seguro Residencial",
+            "plans": [
+                {
+                    "planId": "RES-ESSENCIAL-2490",
+                    "name": "Residencial Essencial",
+                    "priceMonthly": 24.90,
+                    "shortPitch": "Coberturas essenciais + assistência 24h.",
+                    "coverages": [
+                        "Incêndio",
+                        "Explosão",
+                        "Queda de raio"
+                    ],
+                    "assistances24h": [
+                        "Chaveiro (emergencial)",
+                        "Eletricista (emergencial)",
+                        "Encanador (emergencial)"
+                    ],
+                    "eligibility": {
+                        "propertyTypes": [
+                            "Casa",
+                            "Apartamento"
+                        ],
+                        "requiresAddress": true
+                    },
+                    "carencia": {
+                        "assistancesHours": 24,
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Mau uso e falta de manutenção",
+                        "Desgaste natural",
+                        "Danos preexistentes",
+                        "Eventos não previstos no certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF do segurado",
+                        "Endereço completo com CEP"
+                    ],
+                    "claimsProcessSteps": [
+                        "Relatar evento e data",
+                        "Informar CPF e endereço",
+                        "Enviar evidências quando solicitado",
+                        "Análise e retorno conforme certificado"
+                    ],
+                    "upsellRecommendations": [
+                        "Residencial Conforto (danos elétricos)",
+                        "Residencial + Conteúdo"
+                    ]
+                },
+                {
+                    "planId": "RES-CONFORTO-3490",
+                    "name": "Residencial Conforto",
+                    "priceMonthly": 34.90,
+                    "shortPitch": "Essencial + danos elétricos e assistência extra.",
+                    "coverages": [
+                        "Incêndio",
+                        "Explosão",
+                        "Queda de raio",
+                        "Danos elétricos (básico, conforme certificado)"
+                    ],
+                    "assistances24h": [
+                        "Chaveiro (emergencial)",
+                        "Eletricista (emergencial)",
+                        "Encanador (emergencial)",
+                        "Vidraceiro (limitado)"
+                    ],
+                    "eligibility": {
+                        "propertyTypes": [
+                            "Casa",
+                            "Apartamento"
+                        ],
+                        "requiresAddress": true
+                    },
+                    "carencia": {
+                        "assistancesHours": 48,
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Mau uso e falta de manutenção",
+                        "Reformas e obras",
+                        "Desgaste natural",
+                        "Itens fora do escopo do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF do segurado",
+                        "Endereço completo com CEP"
+                    ],
+                    "claimsProcessSteps": [
+                        "Relatar evento",
+                        "Informar CPF/endereço",
+                        "Enviar evidências (se solicitado)",
+                        "Acompanhar status pelo WhatsApp"
+                    ],
+                    "upsellRecommendations": [
+                        "Residencial Completo",
+                        "Residencial Premium 360"
+                    ]
+                },
+                {
+                    "planId": "RES-COMPLETO-4990",
+                    "name": "Residencial Completo",
+                    "priceMonthly": 49.90,
+                    "shortPitch": "Cobertura ampliada para clima + assistências extras.",
+                    "coverages": [
+                        "Incêndio",
+                        "Explosão",
+                        "Queda de raio",
+                        "Danos elétricos (ampliado, conforme certificado)",
+                        "Vendaval/Granizo (condicionado)"
+                    ],
+                    "assistances24h": [
+                        "Chaveiro",
+                        "Eletricista",
+                        "Encanador",
+                        "Vidraceiro",
+                        "Pequenos reparos residenciais (limitado)"
+                    ],
+                    "eligibility": {
+                        "propertyTypes": [
+                            "Casa",
+                            "Apartamento"
+                        ],
+                        "requiresAddress": true
+                    },
+                    "carencia": {
+                        "assistancesHours": 72,
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Eventos não previstos no certificado",
+                        "Danos por negligência",
+                        "Desgaste natural"
+                    ],
+                    "documentsRequired": [
+                        "CPF do segurado",
+                        "Endereço completo com CEP"
+                    ],
+                    "claimsProcessSteps": [
+                        "Relatar ocorrência e anexar evidências (se aplicável)",
+                        "Validação e análise",
+                        "Retorno com instruções e prazos"
+                    ],
+                    "upsellRecommendations": [
+                        "Residencial + Conteúdo",
+                        "Residencial Premium 360"
+                    ]
+                },
+                {
+                    "planId": "RES-CONTEUDO-5990",
+                    "name": "Residencial + Conteúdo",
+                    "priceMonthly": 59.90,
+                    "shortPitch": "Inclui proteção para bens dentro do imóvel (regras do certificado).",
+                    "coverages": [
+                        "Incêndio",
+                        "Explosão",
+                        "Queda de raio",
+                        "Vendaval/Granizo (condicionado)",
+                        "Conteúdo (bens no interior, limitado)"
+                    ],
+                    "assistances24h": [
+                        "Chaveiro",
+                        "Eletricista",
+                        "Encanador",
+                        "Vidraceiro",
+                        "Pequenos reparos (limitado)"
+                    ],
+                    "eligibility": {
+                        "propertyTypes": [
+                            "Casa",
+                            "Apartamento"
+                        ],
+                        "requiresAddress": true
+                    },
+                    "carencia": {
+                        "assistancesHours": 72,
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Itens especiais fora de regra",
+                        "Desgaste/mau uso",
+                        "Eventos fora do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF do segurado",
+                        "Endereço completo com CEP"
+                    ],
+                    "claimsProcessSteps": [
+                        "Informar evento e lista básica de bens (se aplicável)",
+                        "Enviar evidências/fotos quando solicitado",
+                        "Análise e retorno"
+                    ],
+                    "upsellRecommendations": [
+                        "Residencial Premium 360"
+                    ]
+                },
+                {
+                    "planId": "RES-PREMIUM-7990",
+                    "name": "Residencial Premium 360",
+                    "priceMonthly": 79.90,
+                    "shortPitch": "Cobertura e assistências ampliadas + RC familiar limitada.",
+                    "coverages": [
+                        "Incêndio",
+                        "Explosão",
+                        "Queda de raio",
+                        "Danos elétricos (ampliado)",
+                        "Vendaval/Granizo (condicionado)",
+                        "Conteúdo (limitado)",
+                        "Responsabilidade civil familiar (limitada)"
+                    ],
+                    "assistances24h": [
+                        "Assistências ampliadas (mais tipos/acionamentos, conforme certificado)"
+                    ],
+                    "eligibility": {
+                        "propertyTypes": [
+                            "Casa",
+                            "Apartamento"
+                        ],
+                        "requiresAddress": true,
+                        "mayValidateCep": true
+                    },
+                    "carencia": {
+                        "assistancesHours": 72,
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Fraude/omissão de informações",
+                        "Danos preexistentes",
+                        "Eventos fora do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF do segurado",
+                        "Endereço completo com CEP"
+                    ],
+                    "claimsProcessSteps": [
+                        "Relatar ocorrência",
+                        "Validar endereço e segurado",
+                        "Enviar evidências quando aplicável",
+                        "Análise e conclusão"
+                    ],
+                    "upsellRecommendations": []
+                }
+            ]
+        },
+        {
+            "typeId": "AUTO",
+            "typeName": "Seguro Auto",
+            "plans": [
+                {
+                    "planId": "AUTO-BASICO-14990",
+                    "name": "Auto Básico",
+                    "priceMonthly": 149.90,
+                    "shortPitch": "Colisão + roubo/furto + assistência 24h.",
+                    "coverages": [
+                        "Colisão",
+                        "Roubo/Furto"
+                    ],
+                    "assistances24h": [
+                        "Guincho (limitado)",
+                        "Pane seca (limitado)"
+                    ],
+                    "eligibility": {
+                        "requiresVehicleData": [
+                            "Placa",
+                            "Modelo",
+                            "Ano"
+                        ],
+                        "mayRequestVehiclePhotos": true
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Condutor sem habilitação válida",
+                        "Embriaguez",
+                        "Uso ilícito/fraude",
+                        "Danos preexistentes"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados do veículo"
+                    ],
+                    "claimsProcessSteps": [
+                        "Relatar evento",
+                        "Enviar BO (roubo/furto) quando aplicável",
+                        "Análise e retorno"
+                    ],
+                    "upsellRecommendations": [
+                        "Auto + Terceiros",
+                        "Auto Premium"
+                    ]
+                },
+                {
+                    "planId": "AUTO-URBANO-17990",
+                    "name": "Auto Urbano",
+                    "priceMonthly": 179.90,
+                    "shortPitch": "Básico + vidros (limitado) e guincho com limite maior.",
+                    "coverages": [
+                        "Colisão",
+                        "Roubo/Furto",
+                        "Vidros (limitado)"
+                    ],
+                    "assistances24h": [
+                        "Guincho (limite maior)",
+                        "Pane seca (limitado)"
+                    ],
+                    "eligibility": {
+                        "requiresVehicleData": [
+                            "Placa",
+                            "Modelo",
+                            "Ano"
+                        ]
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Fraude",
+                        "Embriaguez",
+                        "Uso irregular",
+                        "Condições fora do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados do veículo"
+                    ],
+                    "claimsProcessSteps": [
+                        "Relatar e enviar evidências",
+                        "Análise e retorno"
+                    ],
+                    "upsellRecommendations": [
+                        "Auto + Terceiros"
+                    ]
+                },
+                {
+                    "planId": "AUTO-TOTAL-21990",
+                    "name": "Auto Proteção Total",
+                    "priceMonthly": 219.90,
+                    "shortPitch": "Cobertura mais robusta + assistência mais completa.",
+                    "coverages": [
+                        "Colisão",
+                        "Roubo/Furto",
+                        "Eventos naturais básicos (condicionado)"
+                    ],
+                    "assistances24h": [
+                        "Assistência completa (conforme certificado)"
+                    ],
+                    "eligibility": {
+                        "requiresVehicleData": [
+                            "Placa",
+                            "Modelo",
+                            "Ano"
+                        ]
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Risco não previsto no certificado",
+                        "Embriaguez",
+                        "Fraude"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados do veículo"
+                    ],
+                    "claimsProcessSteps": [
+                        "Registro do evento",
+                        "Envio de documentos",
+                        "Análise"
+                    ],
+                    "upsellRecommendations": [
+                        "Auto + Terceiros",
+                        "Auto Premium"
+                    ]
+                },
+                {
+                    "planId": "AUTO-TERCEIROS-24990",
+                    "name": "Auto + Terceiros (RCF fixo)",
+                    "priceMonthly": 249.90,
+                    "shortPitch": "Inclui danos a terceiros com limite fixo (RCF).",
+                    "coverages": [
+                        "Colisão",
+                        "Roubo/Furto",
+                        "RCF Terceiros (limite fixo)",
+                        "Eventos naturais básicos (condicionado)"
+                    ],
+                    "assistances24h": [
+                        "Assistência completa (conforme certificado)"
+                    ],
+                    "eligibility": {
+                        "requiresVehicleData": [
+                            "Placa",
+                            "Modelo",
+                            "Ano"
+                        ]
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Eventos fora do certificado",
+                        "Embriaguez",
+                        "Fraude"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados do veículo"
+                    ],
+                    "claimsProcessSteps": [
+                        "Relato do sinistro",
+                        "Documentos do terceiro (se aplicável)",
+                        "Análise e retorno"
+                    ],
+                    "upsellRecommendations": [
+                        "Auto Premium"
+                    ]
+                },
+                {
+                    "planId": "AUTO-PREMIUM-29990",
+                    "name": "Auto Premium",
+                    "priceMonthly": 299.90,
+                    "shortPitch": "Carro reserva (limitado) + assistência ampliada.",
+                    "coverages": [
+                        "Colisão",
+                        "Roubo/Furto",
+                        "RCF Terceiros (limite fixo)",
+                        "Carro reserva (limitado)"
+                    ],
+                    "assistances24h": [
+                        "Assistência ampliada (conforme certificado)"
+                    ],
+                    "eligibility": {
+                        "requiresVehicleData": [
+                            "Placa",
+                            "Modelo",
+                            "Ano"
+                        ],
+                        "mayRequestVehiclePhotos": true
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Condições fora do certificado",
+                        "Uso irregular",
+                        "Fraude/omissão"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados do veículo"
+                    ],
+                    "claimsProcessSteps": [
+                        "Registro e comprovação",
+                        "Análise",
+                        "Liberação de benefícios conforme regras"
+                    ],
+                    "upsellRecommendations": []
+                }
+            ]
+        },
+        {
+            "typeId": "VIDA",
+            "typeName": "Seguro de Vida",
+            "plans": [
+                {
+                    "planId": "VIDA-50K-3990",
+                    "name": "Vida Essencial 50K",
+                    "priceMonthly": 39.90,
+                    "shortPitch": "R$ 50 mil para morte natural ou acidental.",
+                    "coverages": [
+                        "Morte natural (50K)",
+                        "Morte acidental (50K)"
+                    ],
+                    "eligibility": {
+                        "requiresCpf": true,
+                        "beneficiariesAllowed": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Fraude/omissão",
+                        "Exclusões contratuais do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados pessoais",
+                        "Beneficiários (nome e percentual)"
+                    ],
+                    "claimsProcessSteps": [
+                        "Acionar pelo WhatsApp",
+                        "Enviar certidão/relatórios",
+                        "Documentos dos beneficiários",
+                        "Análise e pagamento"
+                    ],
+                    "upsellRecommendations": [
+                        "Vida Família 100K",
+                        "Vida + Invalidez"
+                    ]
+                },
+                {
+                    "planId": "VIDA-100K-5990",
+                    "name": "Vida Família 100K",
+                    "priceMonthly": 59.90,
+                    "shortPitch": "R$ 100 mil + assistência funeral (limitada).",
+                    "coverages": [
+                        "Morte natural (100K)",
+                        "Morte acidental (100K)",
+                        "Assistência funeral (limitada)"
+                    ],
+                    "eligibility": {
+                        "requiresCpf": true,
+                        "beneficiariesAllowed": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Fraude",
+                        "Condições fora do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados pessoais",
+                        "Beneficiários"
+                    ],
+                    "claimsProcessSteps": [
+                        "Acionar",
+                        "Enviar documentos",
+                        "Análise",
+                        "Conclusão"
+                    ],
+                    "upsellRecommendations": [
+                        "Vida Proteção 150K",
+                        "Vida Premium 200K"
+                    ]
+                },
+                {
+                    "planId": "VIDA-150K-7990",
+                    "name": "Vida Proteção 150K",
+                    "priceMonthly": 79.90,
+                    "shortPitch": "R$ 150 mil + orientação para beneficiários (serviço).",
+                    "coverages": [
+                        "Morte natural (150K)",
+                        "Morte acidental (150K)",
+                        "Orientação ao beneficiário (serviço)"
+                    ],
+                    "eligibility": {
+                        "requiresCpf": true,
+                        "beneficiariesAllowed": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Fraude/omissão",
+                        "Exclusões do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados pessoais",
+                        "Beneficiários"
+                    ],
+                    "claimsProcessSteps": [
+                        "Abertura",
+                        "Documentos",
+                        "Análise",
+                        "Pagamento"
+                    ],
+                    "upsellRecommendations": [
+                        "Vida Premium 200K"
+                    ]
+                },
+                {
+                    "planId": "VIDA-100K-IPA-8990",
+                    "name": "Vida + Invalidez (100K + IPA)",
+                    "priceMonthly": 89.90,
+                    "shortPitch": "Morte 100K + invalidez por acidente (IPA) com limite fixo.",
+                    "coverages": [
+                        "Morte natural (100K)",
+                        "Morte acidental (100K)",
+                        "Invalidez por acidente (IPA, limite fixo)"
+                    ],
+                    "eligibility": {
+                        "requiresCpf": true,
+                        "beneficiariesAllowed": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Eventos não cobertos no certificado",
+                        "Fraude"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados pessoais",
+                        "Beneficiários"
+                    ],
+                    "claimsProcessSteps": [
+                        "Acionar",
+                        "Enviar laudos/documentos",
+                        "Análise",
+                        "Conclusão"
+                    ],
+                    "upsellRecommendations": [
+                        "Vida Premium 200K"
+                    ]
+                },
+                {
+                    "planId": "VIDA-200K-10990",
+                    "name": "Vida Premium 200K",
+                    "priceMonthly": 109.90,
+                    "shortPitch": "Capital maior + assistências ampliadas (conforme certificado).",
+                    "coverages": [
+                        "Morte natural (200K)",
+                        "Morte acidental (200K)",
+                        "Assistências ampliadas (serviços)"
+                    ],
+                    "eligibility": {
+                        "requiresCpf": true,
+                        "beneficiariesAllowed": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Fraude/omissão",
+                        "Exclusões contratuais"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados pessoais",
+                        "Beneficiários"
+                    ],
+                    "claimsProcessSteps": [
+                        "Abertura",
+                        "Envio de documentos",
+                        "Análise",
+                        "Pagamento"
+                    ],
+                    "upsellRecommendations": []
+                }
+            ]
+        },
+        {
+            "typeId": "CELULAR",
+            "typeName": "Seguro Celular",
+            "plans": [
+                {
+                    "planId": "CEL-BASICO-1990",
+                    "name": "Celular Básico Anti-Roubo",
+                    "priceMonthly": 19.90,
+                    "shortPitch": "Roubo e furto qualificado para aparelhos até R$ 3.000.",
+                    "coverages": [
+                        "Roubo",
+                        "Furto qualificado"
+                    ],
+                    "eligibility": {
+                        "maxDeviceValue": 3000,
+                        "recommendedImei": true
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Perda/extravio",
+                        "Furto simples",
+                        "Fraude"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Marca/Modelo",
+                        "IMEI (recomendado)",
+                        "BO em caso de sinistro"
+                    ],
+                    "claimsProcessSteps": [
+                        "Fazer BO",
+                        "Acionar pelo WhatsApp",
+                        "Enviar dados do aparelho",
+                        "Análise e solução"
+                    ],
+                    "upsellRecommendations": [
+                        "Celular Standard",
+                        "Celular Plus"
+                    ]
+                },
+                {
+                    "planId": "CEL-STANDARD-2990",
+                    "name": "Celular Standard",
+                    "priceMonthly": 29.90,
+                    "shortPitch": "Roubo e furto qualificado para aparelhos até R$ 6.000.",
+                    "coverages": [
+                        "Roubo",
+                        "Furto qualificado"
+                    ],
+                    "eligibility": {
+                        "maxDeviceValue": 6000,
+                        "recommendedImei": true
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Perda/extravio",
+                        "Furto simples",
+                        "Fraude"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Marca/Modelo",
+                        "IMEI (recomendado)",
+                        "BO em caso de sinistro"
+                    ],
+                    "claimsProcessSteps": [
+                        "BO",
+                        "Abertura do sinistro",
+                        "Validação",
+                        "Conclusão"
+                    ],
+                    "upsellRecommendations": [
+                        "Celular Plus",
+                        "Celular Premium"
+                    ]
+                },
+                {
+                    "planId": "CEL-PLUS-3990",
+                    "name": "Celular Plus",
+                    "priceMonthly": 39.90,
+                    "shortPitch": "Roubo/furto qualificado + danos acidentais (limitado).",
+                    "coverages": [
+                        "Roubo",
+                        "Furto qualificado",
+                        "Danos acidentais (limitado)"
+                    ],
+                    "eligibility": {
+                        "maxDeviceValue": 6000,
+                        "recommendedImei": true
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation",
+                        "accidentalDamageRules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Perda/extravio",
+                        "Furto simples",
+                        "Fraude",
+                        "Danos fora das regras"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Marca/Modelo",
+                        "IMEI (recomendado)",
+                        "Evidências do dano quando aplicável"
+                    ],
+                    "claimsProcessSteps": [
+                        "Relatar evento",
+                        "Enviar evidências",
+                        "Análise",
+                        "Conclusão"
+                    ],
+                    "upsellRecommendations": [
+                        "Celular Premium",
+                        "Celular VIP"
+                    ]
+                },
+                {
+                    "planId": "CEL-PREMIUM-4990",
+                    "name": "Celular Premium",
+                    "priceMonthly": 49.90,
+                    "shortPitch": "Plus + oxidação líquida (limitada e condicionada).",
+                    "coverages": [
+                        "Roubo",
+                        "Furto qualificado",
+                        "Danos acidentais (limitado)",
+                        "Oxidação líquida (limitada)"
+                    ],
+                    "eligibility": {
+                        "maxDeviceValue": 8000,
+                        "recommendedImei": true
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Perda/extravio",
+                        "Furto simples",
+                        "Fraude",
+                        "Oxidação fora das regras"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Marca/Modelo",
+                        "IMEI (recomendado)",
+                        "BO quando aplicável"
+                    ],
+                    "claimsProcessSteps": [
+                        "Acionar",
+                        "Enviar documentação",
+                        "Análise",
+                        "Conclusão"
+                    ],
+                    "upsellRecommendations": [
+                        "Celular VIP"
+                    ]
+                },
+                {
+                    "planId": "CEL-VIP-5990",
+                    "name": "Celular VIP (Agilidade)",
+                    "priceMonthly": 59.90,
+                    "shortPitch": "Premium + triagem priorizada (SLA operacional).",
+                    "coverages": [
+                        "Roubo",
+                        "Furto qualificado",
+                        "Danos acidentais (limitado)",
+                        "Oxidação líquida (limitada)"
+                    ],
+                    "eligibility": {
+                        "maxDeviceValue": 10000,
+                        "recommendedImei": true
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Perda/extravio",
+                        "Furto simples",
+                        "Fraude",
+                        "Eventos fora do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Marca/Modelo",
+                        "IMEI (recomendado)",
+                        "BO quando aplicável"
+                    ],
+                    "claimsProcessSteps": [
+                        "Abertura priorizada",
+                        "Validação",
+                        "Conclusão conforme regras"
+                    ],
+                    "upsellRecommendations": []
+                }
+            ]
+        },
+        {
+            "typeId": "ACIDENTES_PESSOAIS",
+            "typeName": "Seguro Acidentes Pessoais",
+            "plans": [
+                {
+                    "planId": "AP-ESSENCIAL-1990",
+                    "name": "AP Essencial",
+                    "priceMonthly": 19.90,
+                    "shortPitch": "Morte acidental + invalidez por acidente (limites fixos).",
+                    "coverages": [
+                        "Morte acidental (limite fixo)",
+                        "Invalidez por acidente (limite fixo)"
+                    ],
+                    "eligibility": {
+                        "requiresCpf": true
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Fraude",
+                        "Eventos intencionais",
+                        "Exclusões do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados pessoais"
+                    ],
+                    "claimsProcessSteps": [
+                        "Acionar",
+                        "Enviar laudos/documentos",
+                        "Análise",
+                        "Conclusão"
+                    ],
+                    "upsellRecommendations": [
+                        "AP Diário",
+                        "AP Premium"
+                    ]
+                },
+                {
+                    "planId": "AP-DIARIO-2490",
+                    "name": "AP Diário",
+                    "priceMonthly": 24.90,
+                    "shortPitch": "Essencial + diária por internação (limitado).",
+                    "coverages": [
+                        "Morte acidental",
+                        "Invalidez por acidente",
+                        "Diária por internação (limitada)"
+                    ],
+                    "eligibility": {
+                        "requiresCpf": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Eventos fora das regras",
+                        "Fraude"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados pessoais",
+                        "Comprovante de internação (quando aplicável)"
+                    ],
+                    "claimsProcessSteps": [
+                        "Relatar",
+                        "Enviar comprovação",
+                        "Análise",
+                        "Pagamento conforme regras"
+                    ],
+                    "upsellRecommendations": [
+                        "AP Premium"
+                    ]
+                },
+                {
+                    "planId": "AP-PROF-3490",
+                    "name": "AP Profissional",
+                    "priceMonthly": 34.90,
+                    "shortPitch": "Limites maiores + foco em deslocamento/rotina.",
+                    "coverages": [
+                        "Morte acidental (capital maior)",
+                        "Invalidez por acidente (capital maior)"
+                    ],
+                    "eligibility": {
+                        "requiresCpf": true
+                    },
+                    "carencia": {
+                        "coveragesStart": "after_payment_confirmation"
+                    },
+                    "exclusionsSummary": [
+                        "Fraude",
+                        "Atividades excluídas no certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados pessoais"
+                    ],
+                    "claimsProcessSteps": [
+                        "Abertura",
+                        "Documentos",
+                        "Análise",
+                        "Conclusão"
+                    ],
+                    "upsellRecommendations": [
+                        "AP Premium"
+                    ]
+                },
+                {
+                    "planId": "AP-ESPORTES-3990",
+                    "name": "AP Esportes",
+                    "priceMonthly": 39.90,
+                    "shortPitch": "Inclui esportes amadores (conforme regras).",
+                    "coverages": [
+                        "Morte acidental",
+                        "Invalidez por acidente",
+                        "Cobertura esportiva amadora (condicionada)"
+                    ],
+                    "eligibility": {
+                        "requiresCpf": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Esportes de alto risco não contemplados",
+                        "Fraude"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados pessoais"
+                    ],
+                    "claimsProcessSteps": [
+                        "Relatar",
+                        "Enviar documentação",
+                        "Análise"
+                    ],
+                    "upsellRecommendations": [
+                        "AP Premium"
+                    ]
+                },
+                {
+                    "planId": "AP-PREMIUM-4990",
+                    "name": "AP Premium",
+                    "priceMonthly": 49.90,
+                    "shortPitch": "Capital maior + diárias + suporte pós-acidente (serviço).",
+                    "coverages": [
+                        "Morte acidental (capital maior)",
+                        "Invalidez por acidente (capital maior)",
+                        "Diária por internação (limitada)",
+                        "Suporte pós-acidente (serviço)"
+                    ],
+                    "eligibility": {
+                        "requiresCpf": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Fraude/omissão",
+                        "Exclusões do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados pessoais",
+                        "Documentos do evento quando aplicável"
+                    ],
+                    "claimsProcessSteps": [
+                        "Abertura",
+                        "Triagem",
+                        "Análise",
+                        "Conclusão"
+                    ],
+                    "upsellRecommendations": []
+                }
+            ]
+        },
+        {
+            "typeId": "PET",
+            "typeName": "Seguro Pet",
+            "plans": [
+                {
+                    "planId": "PET-BASICO-3490",
+                    "name": "Pet Básico",
+                    "priceMonthly": 34.90,
+                    "shortPitch": "Consultas + vacinas obrigatórias (regras e rede).",
+                    "coverages": [
+                        "Consultas (rede, limitado)",
+                        "Vacinas obrigatórias (conforme regras)"
+                    ],
+                    "eligibility": {
+                        "speciesAllowed": [
+                            "Cão",
+                            "Gato"
+                        ],
+                        "requiresPetAge": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Preexistências (em geral)",
+                        "Procedimentos fora do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados do pet (nome, espécie, idade)",
+                        "Endereço (quando exigido)"
+                    ],
+                    "claimsProcessSteps": [
+                        "Consultar rede",
+                        "Agendar",
+                        "Utilizar conforme regras"
+                    ],
+                    "upsellRecommendations": [
+                        "Pet Bem-Estar",
+                        "Pet Completo"
+                    ]
+                },
+                {
+                    "planId": "PET-BEMESTAR-4490",
+                    "name": "Pet Bem-Estar",
+                    "priceMonthly": 44.90,
+                    "shortPitch": "Básico + exames simples (limitado).",
+                    "coverages": [
+                        "Consultas",
+                        "Vacinas obrigatórias",
+                        "Exames simples (limitado)"
+                    ],
+                    "eligibility": {
+                        "speciesAllowed": [
+                            "Cão",
+                            "Gato"
+                        ],
+                        "requiresPetAge": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Condições preexistentes",
+                        "Exames fora do escopo"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados do pet"
+                    ],
+                    "claimsProcessSteps": [
+                        "Rede credenciada",
+                        "Agendamento",
+                        "Atendimento"
+                    ],
+                    "upsellRecommendations": [
+                        "Pet Completo"
+                    ]
+                },
+                {
+                    "planId": "PET-COMPLETO-5990",
+                    "name": "Pet Completo",
+                    "priceMonthly": 59.90,
+                    "shortPitch": "Exames + urgência/emergência (limitado).",
+                    "coverages": [
+                        "Consultas",
+                        "Vacinas",
+                        "Exames (limitado)",
+                        "Urgência/Emergência (limitado)"
+                    ],
+                    "eligibility": {
+                        "speciesAllowed": [
+                            "Cão",
+                            "Gato"
+                        ],
+                        "requiresPetAge": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Preexistências",
+                        "Tratamentos contínuos fora do certificado"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados do pet"
+                    ],
+                    "claimsProcessSteps": [
+                        "Acesso à rede",
+                        "Atendimento",
+                        "Regras de utilização"
+                    ],
+                    "upsellRecommendations": [
+                        "Pet Cirúrgico",
+                        "Pet Premium"
+                    ]
+                },
+                {
+                    "planId": "PET-CIRURGICO-6990",
+                    "name": "Pet Cirúrgico",
+                    "priceMonthly": 69.90,
+                    "shortPitch": "Completo + auxílio cirurgia (limitado e condicionado).",
+                    "coverages": [
+                        "Consultas",
+                        "Vacinas",
+                        "Exames",
+                        "Urgência/Emergência",
+                        "Auxílio cirurgia (condicionado)"
+                    ],
+                    "eligibility": {
+                        "speciesAllowed": [
+                            "Cão",
+                            "Gato"
+                        ],
+                        "requiresPetAge": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Cirurgias fora das condições",
+                        "Preexistências"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados do pet",
+                        "Solicitação/relatórios quando aplicável"
+                    ],
+                    "claimsProcessSteps": [
+                        "Triagem",
+                        "Encaminhamento",
+                        "Análise conforme regras"
+                    ],
+                    "upsellRecommendations": [
+                        "Pet Premium"
+                    ]
+                },
+                {
+                    "planId": "PET-PREMIUM-8990",
+                    "name": "Pet Premium",
+                    "priceMonthly": 89.90,
+                    "shortPitch": "Limites maiores + mais procedimentos e suporte ampliado.",
+                    "coverages": [
+                        "Coberturas ampliadas (conforme certificado)",
+                        "Limites maiores (conforme certificado)"
+                    ],
+                    "eligibility": {
+                        "speciesAllowed": [
+                            "Cão",
+                            "Gato"
+                        ],
+                        "requiresPetAge": true
+                    },
+                    "carencia": {
+                        "rules": "as_per_certificate"
+                    },
+                    "exclusionsSummary": [
+                        "Eventos fora do certificado",
+                        "Fraude/omissão",
+                        "Preexistências"
+                    ],
+                    "documentsRequired": [
+                        "CPF",
+                        "Dados do pet"
+                    ],
+                    "claimsProcessSteps": [
+                        "Acesso à rede/fluxo",
+                        "Atendimento",
+                        "Regras e limites"
+                    ],
+                    "upsellRecommendations": []
+                }
+            ]
+        }
+    ]
+}
