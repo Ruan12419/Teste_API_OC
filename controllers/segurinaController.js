@@ -148,7 +148,7 @@ exports.getCatalogoPorId = (req, res) => {
 
 const gerarESalvarCertificado = async (dadosContratante, plano, dadosSeguro) => {
     const numeroCertificado = Math.floor(100000000 + Math.random() * 900000000);
-    const urlCertificado = `http://localhost:3000/segurina/certificado/${numeroCertificado}`;
+    const urlCertificado = `https://teste-api-oc.onrender.com/segurina/certificado/${numeroCertificado}`;
     const qrCodeBuffer = await QRCode.toBuffer(urlCertificado, {
         errorCorrectionLevel: 'M',
         margin: 1,
