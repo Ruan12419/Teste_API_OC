@@ -187,6 +187,8 @@ const gerarESalvarCertificado = async (dadosContratante, plano, dadosSeguro) => 
             resolve({
                 base64: pdfData.toString('base64'),
                 path: caminhoCompleto,
+                nomeArquivo: nomeArquivo,
+                urlAcesso: `https://teste-api-oc.onrender.com/segurina/certificado/${numeroCertificado}`,
                 numeroCertificado
             });
         });
@@ -259,7 +261,7 @@ const gerarESalvarCertificado = async (dadosContratante, plano, dadosSeguro) => 
         const iof = plano.priceMonthly - valorLiquido;
 
         doc.fillColor(cinzaTexto).fontSize(10);
-        
+
         const formatarBRL = (valor) => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
         doc.text(`Prêmio Líquido Mensal: ${formatarBRL(valorLiquido)}`);
@@ -338,7 +340,9 @@ exports.contratarSeguro = async (req, res) => {
             //     email_usuario: dadosPessoais.email
             // });
 
-            console.log(resultado.nomeArquivo)
+            console.log(`[Segurina] PDF Gerado: ${resultado.nomeArquivo}`);
+            console.log(`[Segurina] URL de Consulta: ${resultado.urlAcesso}`);
+            
             console.log("[Segurina] Callback enviado. Aguardando 5s para disparar e-mail...");
             await new Promise(resolve => setTimeout(resolve, 5000));
 
