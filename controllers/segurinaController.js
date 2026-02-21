@@ -338,7 +338,7 @@ exports.contratarSeguro = async (req, res) => {
             //     email_usuario: dadosPessoais.email
             // });
 
-
+            console.log(resultado.nomeArquivo)
             console.log("[Segurina] Callback enviado. Aguardando 5s para disparar e-mail...");
             await new Promise(resolve => setTimeout(resolve, 5000));
 
