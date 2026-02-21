@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; color: #34495e; }
+        .container { max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .header { background-color: #2c3e50; color: #ffffff; padding: 30px; text-align: center; }
+        .header h1 { margin: 0; font-size: 24px; letter-spacing: 2px; }
+        .content { padding: 40px; line-height: 1.6; }
+        .footer { background-color: #f8f9fa; padding: 20px; text-align: center; font-size: 12px; color: #7f8c8d; border-top: 1px solid #ecf0f1; }
+        .button { display: inline-block; padding: 12px 25px; background-color: #2c3e50; color: #ffffff !important; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; }
+        .highlight { color: #2c3e50; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SEGURINA S.A.</h1>
+        </div>
+        <div class="content">
+            <h2>Olá, {{NOME}}! ✨</h2>
+            <p>Temos o prazer de informar que sua proteção <span class="highlight">{{PLANO}}</span> já está ativa e processada com sucesso.</p>
+            <p>Seu número de certificado oficial é: <span class="highlight">#{{NUMERO}}</span>.</p>
+            <p>O documento original segue anexado a este e-mail em formato PDF. Recomendamos que você o guarde em um local seguro para consultas futuras.</p>
+        </div>
+        <div class="footer">
+            <p>Este é um e-mail automático. Por favor, não responda.</p>
+            <p>SAC: 0800 770 1234 | Ouvidoria: 0800 770 4321</p>
+            <p>&copy; 2026 Segurina S.A. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>

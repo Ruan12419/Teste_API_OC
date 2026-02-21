@@ -2,26 +2,31 @@ const fs = require("fs");
 const path = require('path');
 const PDFDocument = require('pdfkit');
 const QRCode = require('qrcode');
+const transporter = require("../utils/configNodeMailer");
 
 const caminhoHtmlErro = path.join(__dirname, '..', 'utils', 'certificadoNaoEncontrado.html');
 const htmlBase = fs.readFileSync(caminhoHtmlErro, 'utf8');
 
+const caminhoHtmlEmail = path.join(__dirname, '..', 'utils', 'certificadoContratado.html');
+const htmlEmailBase = fs.readFileSync(caminhoHtmlEmail, 'utf8');
+
 const gerarHtmlErro = (id) => {
-    return htmlBase.replace('{{ID}}', id); 
+    return htmlBase.replace('{{ID}}', id);
 };
 
 function temParametros(typeId, planId) {
     if (!typeId) {
-        return { status: false, message: "Parametrô 'typeId' é obrigatório!" };
+        return { status: false, message: "Parâmetro 'typeId' é obrigatório!" };
     }
     if (!planId) {
-        return { status: false, message: "Parametrô 'planId' é obrigatório!" };
+        return { status: false, message: "Parâmetro 'planId' é obrigatório!" };
     }
 
     return { status: true, message: "" };
 }
 
 function validarCPF(cpf) {
+    if (!cpf) return false;
     const cpfLimpo = cpf.replace(/\D/g, '');
 
     if (cpfLimpo.length !== 11 || /^(\d)\1+$/.test(cpfLimpo)) return false;
@@ -44,7 +49,7 @@ function validarCPF(cpf) {
 }
 
 function validarContratanteSeguroVida(dadosContratante) {
-    const { nome, dataNascimento, email, telefone, cpf } = dadosContratante;
+    const { nome, nascimento, email, cpf, telefone } = dadosContratante;
 
     const nomeLimpo = nome.trim();
     if (!nomeLimpo.includes(' ') || nomeLimpo.split(/\s+/).length < 2) {
@@ -55,7 +60,7 @@ function validarContratanteSeguroVida(dadosContratante) {
         return { status: false, message: "O CPF informado é inválido." };
     }
 
-    const dataNasc = new Date(dataNascimento);
+    const dataNasc = new Date(nascimento);
     const hoje = new Date();
     if (isNaN(dataNasc.getTime()) || dataNasc > hoje) {
         return { status: false, message: "Data de nascimento inválida ou no futuro." };
@@ -66,38 +71,41 @@ function validarContratanteSeguroVida(dadosContratante) {
         return { status: false, message: "E-mail em formato inválido." };
     }
 
-    let foneLimpo = telefone?.replace(/\D/g, '');
-
-    if (foneLimpo?.startsWith('55') && (foneLimpo.length === 12 || foneLimpo.length === 13)) {
-        foneLimpo = foneLimpo.substring(2);
-    }
-
-    if (!foneLimpo || foneLimpo.length < 10 || foneLimpo.length > 11) {
-        return { status: false, message: "Telefone deve conter DDD e ter 10 ou 11 dígitos." };
+    if (telefone) {
+        let foneLimpo = telefone.replace(/\D/g, '');
+        if (foneLimpo.startsWith('55') && (foneLimpo.length === 12 || foneLimpo.length === 13)) {
+            foneLimpo = foneLimpo.substring(2);
+        }
+        if (foneLimpo.length < 10 || foneLimpo.length > 11) {
+            return { status: false, message: "Telefone deve conter DDD e ter 10 ou 11 dígitos." };
+        }
     }
 
     return { status: true };
 }
 
 function validarFormaDePagamento(pagamento, cpfContratante) {
-    const { tipo, dados } = pagamento;
+    const { metodo, detalhes, cpfTitular } = pagamento;
     const opcoesValidas = ['cartao_credito', 'debito_conta', 'pix_recorrente'];
     const instituicoesAutorizadas = ['001', '033', '237', '341', '104'];
 
-    if (!opcoesValidas.includes(tipo)) {
+    if (!opcoesValidas.includes(metodo)) {
         return { status: false, message: "Forma de pagamento não suportada." };
     }
 
-    if (!instituicoesAutorizadas.includes(dados.codigoBanco)) {
-        return { status: false, message: "Instituição bancária não autorizada para esta operação." };
+    if (metodo === 'cartao_credito' || metodo === 'debito_conta') {
+        const banco = detalhes.banco || detalhes.codigoBanco;
+        if (!instituicoesAutorizadas.includes(banco)) {
+            return { status: false, message: "Instituição bancária não autorizada para esta operação." };
+        }
     }
 
-    if (dados.cpfTitular !== cpfContratante) {
+    if (cpfTitular !== cpfContratante) {
         return { status: false, message: "O CPF do titular do pagamento deve ser o mesmo do contratante." };
     }
 
-    if (tipo === 'cartao_credito') {
-        if (!validarLuhn(dados.numeroCartao)) {
+    if (metodo === 'cartao_credito') {
+        if (!validarLuhn(detalhes.numero)) {
             return { status: false, message: "Número de cartão de crédito inválido (Falha no dígito verificador)." };
         }
     }
@@ -106,6 +114,8 @@ function validarFormaDePagamento(pagamento, cpfContratante) {
 }
 
 function validarLuhn(numero) {
+    if (!numero) return false;
+
     let numStr = numero.replace(/\D/g, '');
     let soma = 0;
     let deveDobrar = false;
@@ -138,14 +148,17 @@ exports.getCatalogoPorId = (req, res) => {
         return res.status(400).json({ message: verificaParametros.message });
     }
 
-    let plano = catalogo.insuranceTypes.find((type) => type.typeId.toLowerCase() === typeId.toLowerCase()).plans.find((plan) => plan.planId.toLowerCase() === planId.toLowerCase())
+    let tipoSeguro = catalogo.insuranceTypes.find((type) => type.typeId.toLowerCase() === typeId.toLowerCase())
+    if (!tipoSeguro) {
+        return res.status(400).json({ message: `O Tipo de seguro: "${typeId}" não foi encontrado.` });
+    }
+    const plano = tipoSeguro.plans.find((plan) => plan.planId.toLowerCase() === planId.toLowerCase())
 
     if (!plano)
-        return res.status(400).json({ message: `O plano ${planId} não foi encontrado.` });
+        return res.status(400).json({ message: `O plano selecionado: "${planId}" não foi encontrado.` });
 
     return res.status(200).json({ data: plano });
 }
-
 const gerarESalvarCertificado = async (dadosContratante, plano, dadosSeguro) => {
     const numeroCertificado = Math.floor(100000000 + Math.random() * 900000000);
     const urlCertificado = `https://teste-api-oc.onrender.com/segurina/certificado/${numeroCertificado}`;
@@ -185,9 +198,7 @@ const gerarESalvarCertificado = async (dadosContratante, plano, dadosSeguro) => 
         const cinzaClaro = '#7f8c8d';
 
         doc.rect(0, 0, 612, 40).fill(azulEscuro);
-
         doc.fillColor('#ffffff').fontSize(16).text('SEGURINA S.A.', 50, 15, { characterSpacing: 2 });
-
         doc.fillColor(azulEscuro).fontSize(10).text('CERTIFICADO DE SEGURO INDIVIDUAL', 50, 50, { align: 'right' });
         doc.fontSize(8).text('Processo SUSEP nº 15414.900123/2026-11', { align: 'right' });
         doc.moveDown(2);
@@ -214,7 +225,9 @@ const gerarESalvarCertificado = async (dadosContratante, plano, dadosSeguro) => 
         doc.text(`CPF: ${dadosContratante.cpf}`, col2, currentY);
         doc.moveDown(0.5);
         doc.text(`E-mail: ${dadosContratante.email}`, col1, currentY + 15);
-        doc.text(`Telefone: ${dadosContratante.telefone}`, col2, currentY + 15);
+
+        const telefoneDisplay = dadosContratante.telefone || "Não informado";
+        doc.text(`Telefone: ${telefoneDisplay}`, col2, currentY + 15);
         doc.moveDown(2.5);
 
         doc.moveDown(1);
@@ -246,11 +259,18 @@ const gerarESalvarCertificado = async (dadosContratante, plano, dadosSeguro) => 
         const iof = plano.priceMonthly - valorLiquido;
 
         doc.fillColor(cinzaTexto).fontSize(10);
-        doc.text(`Prêmio Líquido Mensal: R$ ${valorLiquido.toFixed(2)}`);
+        
+        const formatarBRL = (valor) => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        doc.text(`Prêmio Líquido Mensal: ${formatarBRL(valorLiquido)}`);
         doc.moveDown(0.5);
-        doc.text(`IOF (0,38%): R$ ${iof.toFixed(2)}`);
+        doc.text(`IOF (0,38%): ${formatarBRL(iof)}`);
         doc.moveDown(1);
-        doc.fontSize(12).fillColor(azulEscuro).text(`PRÊMIO TOTAL MENSAL: R$ ${plano.priceMonthly.toFixed(2)}`, { bold: true });
+
+        doc.fontSize(12).fillColor(azulEscuro).text(
+            `PRÊMIO TOTAL MENSAL: ${formatarBRL(plano.priceMonthly)}`,
+            { bold: true }
+        );
         doc.moveDown();
 
         const bottomY = 620;
@@ -279,46 +299,82 @@ const gerarESalvarCertificado = async (dadosContratante, plano, dadosSeguro) => 
 
 exports.contratarSeguro = async (req, res) => {
     const { typeId, planId } = req.params;
-    const { dadosSeguro, dadosContratante, pagamento } = req.body;
+    const { dadosPessoais, pagamento, dadosBem, endereco } = req.body;
 
     const verificaParametros = temParametros(typeId, planId);
     if (!verificaParametros.status) return res.status(400).json({ message: verificaParametros.message });
 
-    let plano = catalogo.insuranceTypes
+    const plano = catalogo.insuranceTypes
         .find(t => t.typeId.toLowerCase() === typeId.toLowerCase())
         ?.plans.find(p => p.planId.toLowerCase() === planId.toLowerCase());
 
     if (!plano) return res.status(400).json({ message: `Plano ${planId} não encontrado.` });
 
-    const isContratanteValido = validarContratanteSeguroVida(dadosContratante);
-    const isFormaDePagamentoValida = validarFormaDePagamento(pagamento, dadosContratante.cpf);
-
+    const isContratanteValido = validarContratanteSeguroVida(dadosPessoais);
     if (!isContratanteValido.status) return res.status(400).json({ message: isContratanteValido.message });
-    if (!isFormaDePagamentoValida.status) return res.status(400).json({ message: isFormaDePagamentoValida.message });
 
-    try {
-    const delayMs = Math.floor(Math.random() * (30000 - 10000 + 1)) + 10000;
-    
-    console.log(`[Segurina] Simulando processamento... Aguardando ${delayMs / 1000} segundos.`);
+    const isPagamentoValido = validarFormaDePagamento(pagamento, dadosPessoais.cpf);
+    if (!isPagamentoValido.status) return res.status(400).json({ message: isPagamentoValido.message });
 
-    await new Promise(resolve => setTimeout(resolve, delayMs));
-
-    const resultado = await gerarESalvarCertificado(dadosContratante, plano, dadosSeguro);
-
-    console.log(`PDF salvo em: ${resultado.path}`);
-
-    return res.status(200).json({
-        data: {
-            message: "Seguro contratado com sucesso após processamento assíncrono!",
-            certificate: resultado.base64,
-            tempoProcessamento: `${delayMs / 1000}s`
-        }
+    res.status(200).json({
+        status: "PROCESSING",
+        message: "Seus dados já foram enviados para processamento. Assim que o pagamento for compensado, sua cobertura começará automaticamente."
     });
 
-} catch (error) {
-    console.error("Erro interno na Segurina:", error);
-    return res.status(500).json({ message: "Erro ao gerar o certificado digital." });
-}
+    (async () => {
+        try {
+            const delayMs = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000;
+            console.log(`[Segurina] Processando pagamento e apólice... (${delayMs / 1000}s)`);
+
+            await new Promise(resolve => setTimeout(resolve, delayMs));
+
+            const resultado = await gerarESalvarCertificado(dadosPessoais, plano, { dadosBem, endereco });
+
+            // await axios.post('URL_CALLBACK_DO_BOT', {
+            //     status_contratacao: "SUCESSO",
+            //     numero_apolice: resultado.numeroCertificado,
+            //     certificado_base64: resultado.base64,
+            //     nome_seguro: plano.name,
+            //     email_usuario: dadosPessoais.email
+            // });
+
+
+            console.log("[Segurina] Callback enviado. Aguardando 5s para disparar e-mail...");
+            await new Promise(resolve => setTimeout(resolve, 5000));
+
+            let htmlFinal = htmlEmailBase
+                .replace('{{NOME}}', dadosPessoais.nome)
+                .replace('{{PLANO}}', plano.name)
+                .replace('{{NUMERO}}', resultado.numeroCertificado);
+
+            const info = await transporter.sendMail({
+                from: '"Segurina S.A. 🛡️" <seguros@segurina.com.br>',
+                to: dadosPessoais.email,
+                subject: `Sua proteção está ativa! Certificado nº ${resultado.numeroCertificado}`,
+                text: `Olá, ${dadosPessoais.nome}! Sua proteção para ${plano.name} já está ativa.`,
+                html: htmlFinal,
+                attachments: [
+                    {
+                        filename: `Certificado_Segurina_${resultado.numeroCertificado}.pdf`,
+                        path: resultado.path
+                    }
+                ]
+            });
+
+            console.log("--- DADOS PARA O CALLBACK DO BOT ---");
+            console.log({
+                status_contratacao: "SUCESSO",
+                numero_apolice: resultado.numeroCertificado,
+                certificado_base64: resultado.base64,
+                nome_seguro: plano.name,
+                email_usuario: dadosPessoais.email
+            });
+
+            console.log(`[Segurina] Certificado gerado com sucesso: ${resultado.path}`);
+        } catch (error) {
+            console.error("Erro no processamento assíncrono da Segurina:", error);
+        }
+    })();
 };
 
 exports.mostrarCertificado = (req, res) => {
