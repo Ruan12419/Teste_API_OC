@@ -93,7 +93,7 @@ function validarFormaDePagamento(pagamento, cpfContratante) {
         return { status: false, message: "Forma de pagamento não suportada." };
     }
 
-    if (metodo === 'cartao_credito' || metodo === 'debito_conta') {
+    if (metodo === 'debito_conta') {
         const banco = detalhes.banco || detalhes.codigoBanco;
         if (!instituicoesAutorizadas.includes(banco)) {
             return { status: false, message: "Instituição bancária não autorizada para esta operação." };
