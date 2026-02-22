@@ -1,0 +1,242 @@
+[
+    {
+        "dataRegistro": "2026-02-22T22:30:00.000Z",
+        "contratante": {
+            "nome": "Ruan Silva",
+            "cpf": "98765432100",
+            "email": "ruan.teste@email.com",
+            "telefone": "5581988268860"
+        },
+        "planoContratado": {
+            "planId": "AUTO-BASICO-14990",
+            "name": "Auto Básico",
+            "priceMonthly": 149.9,
+            "shortPitch": "Colisão + roubo/furto + assistência 24h.",
+            "coverages": [
+                "Colisão",
+                "Roubo/Furto"
+            ],
+            "assistances24h": [
+                "Guincho (limitado)",
+                "Pane seca (limitado)"
+            ],
+            "eligibility": {
+                "requiresVehicleData": [
+                    "Placa",
+                    "Modelo",
+                    "Ano"
+                ],
+                "mayRequestVehiclePhotos": true
+            },
+            "carencia": {
+                "coveragesStart": "after_payment_confirmation"
+            },
+            "exclusionsSummary": [
+                "Condutor sem habilitação válida",
+                "Embriaguez",
+                "Uso ilícito/fraude",
+                "Danos preexistentes"
+            ],
+            "documentsRequired": [
+                "CPF",
+                "Dados do veículo"
+            ],
+            "claimsProcessSteps": [
+                "Relatar evento",
+                "Enviar BO (roubo/furto) quando aplicável",
+                "Análise e retorno"
+            ],
+            "upsellRecommendations": [
+                "Auto + Terceiros",
+                "Auto Premium"
+            ]
+        },
+        "detalhesCertificado": {
+            "numero": 123456789,
+            "arquivo": "certificado_123456789.pdf",
+            "pathLocal": "C:\\Users\\az880\\OneDrive\\Documentos\\GitHub\\Teste_API_OC\\certificados\\certificado_123456789.pdf"
+        },
+        "bemSegurado": {
+            "identificador": "ABC-1234",
+            "modeloOuEspecie": "Volkswagen Golf",
+            "detalheOuIdade": "2022"
+        }
+    },
+    {
+        "dataRegistro": "2026-02-22T22:35:00.000Z",
+        "contratante": {
+            "nome": "Ruan Silva",
+            "cpf": "98765432100",
+            "email": "ruan.teste@email.com",
+            "telefone": "5581988268860"
+        },
+        "planoContratado": {
+            "planId": "RES-ESSENCIAL-2490",
+            "name": "Residencial Essencial",
+            "priceMonthly": 24.9,
+            "shortPitch": "Coberturas essenciais + assistência 24h.",
+            "coverages": [
+                "Incêndio",
+                "Explosão",
+                "Queda de raio"
+            ],
+            "assistances24h": [
+                "Chaveiro (emergencial)",
+                "Eletricista (emergencial)",
+                "Encanador (emergencial)"
+            ],
+            "eligibility": {
+                "propertyTypes": [
+                    "Casa",
+                    "Apartamento"
+                ],
+                "requiresAddress": true
+            },
+            "carencia": {
+                "assistancesHours": 24,
+                "coveragesStart": "after_payment_confirmation"
+            },
+            "exclusionsSummary": [
+                "Mau uso e falta de manutenção",
+                "Desgaste natural",
+                "Danos preexistentes",
+                "Eventos não previstos no certificado"
+            ],
+            "documentsRequired": [
+                "CPF do segurado",
+                "Endereço completo com CEP"
+            ],
+            "claimsProcessSteps": [
+                "Relatar evento e data",
+                "Informar CPF e endereço",
+                "Enviar evidências quando solicitado"
+            ],
+            "upsellRecommendations": [
+                "Residencial Conforto (danos elétricos)",
+                "Residencial + Conteúdo"
+            ]
+        },
+        "detalhesCertificado": {
+            "numero": 987654321,
+            "arquivo": "certificado_987654321.pdf",
+            "pathLocal": "C:\\Users\\az880\\OneDrive\\Documentos\\GitHub\\Teste_API_OC\\certificados\\certificado_987654321.pdf"
+        },
+        "bemSegurado": {
+            "identificador": "Minha Casa",
+            "modeloOuEspecie": "Apartamento",
+            "detalheOuIdade": "Rua Exemplo, 123"
+        }
+    },
+    {
+        "dataRegistro": "2026-02-22T22:40:00.000Z",
+        "contratante": {
+            "nome": "Ruan Silva",
+            "cpf": "98765432100",
+            "email": "ruan.teste@email.com",
+            "telefone": "5581988268860"
+        },
+        "planoContratado": {
+            "planId": "CEL-VIP-5990",
+            "name": "Celular VIP (Agilidade)",
+            "priceMonthly": 59.9,
+            "shortPitch": "Premium + triagem priorizada (SLA operacional).",
+            "coverages": [
+                "Roubo",
+                "Furto qualificado",
+                "Danos acidentais (limitado)",
+                "Oxidação líquida (limitada)"
+            ],
+            "eligibility": {
+                "maxDeviceValue": 10000,
+                "recommendedImei": true
+            },
+            "carencia": {
+                "coveragesStart": "after_payment_confirmation"
+            },
+            "exclusionsSummary": [
+                "Perda/extravio",
+                "Furto simples",
+                "Fraude",
+                "Eventos fora do certificado"
+            ],
+            "documentsRequired": [
+                "CPF",
+                "Marca/Modelo",
+                "IMEI (recomendado)",
+                "BO quando aplicável"
+            ],
+            "claimsProcessSteps": [
+                "Abertura priorizada",
+                "Validação",
+                "Conclusão conforme regras"
+            ],
+            "upsellRecommendations": []
+        },
+        "detalhesCertificado": {
+            "numero": 456789123,
+            "arquivo": "certificado_456789123.pdf",
+            "pathLocal": "C:\\Users\\az880\\OneDrive\\Documentos\\GitHub\\Teste_API_OC\\certificados\\certificado_456789123.pdf"
+        },
+        "bemSegurado": {
+            "identificador": "iPhone 15 Pro",
+            "modeloOuEspecie": "Apple",
+            "detalheOuIdade": "IMEI: 352617110000000"
+        }
+    },
+    {
+        "dataRegistro": "2026-02-22T22:45:00.000Z",
+        "contratante": {
+            "nome": "Ruan Silva",
+            "cpf": "98765432100",
+            "email": "ruan.teste@email.com",
+            "telefone": "5581988268860"
+        },
+        "planoContratado": {
+            "planId": "VIDA-100K-5990",
+            "name": "Vida Família 100K",
+            "priceMonthly": 59.9,
+            "shortPitch": "R$ 100 mil + assistência funeral (limitada).",
+            "coverages": [
+                "Morte natural (100K)",
+                "Morte acidental (100K)",
+                "Assistência funeral (limitada)"
+            ],
+            "eligibility": {
+                "requiresCpf": true,
+                "beneficiariesAllowed": true
+            },
+            "carencia": {
+                "rules": "as_per_certificate"
+            },
+            "exclusionsSummary": [
+                "Fraude",
+                "Condições fora do certificado"
+            ],
+            "documentsRequired": [
+                "CPF",
+                "Dados pessoais",
+                "Beneficiários"
+            ],
+            "claimsProcessSteps": [
+                "Acionar",
+                "Enviar documentos",
+                "Análise",
+                "Conclusão"
+            ],
+            "upsellRecommendations": [
+                "Vida Proteção 150K",
+                "Vida Premium 200K"
+            ]
+        },
+        "detalhesCertificado": {
+            "numero": 321654987,
+            "arquivo": "certificado_321654987.pdf",
+            "pathLocal": "C:\\Users\\az880\\OneDrive\\Documentos\\GitHub\\Teste_API_OC\\certificados\\certificado_321654987.pdf"
+        },
+        "bemSegurado": {
+            "identificador": "Beneficiário Principal",
+            "modeloOuEspecie": "Seguro de Vida",
+            "detalheOuIdade": "Indenização 100K"
+        }
+    }
+]

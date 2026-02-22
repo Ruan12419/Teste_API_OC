@@ -12,6 +12,12 @@ const htmlBase = fs.readFileSync(caminhoHtmlErro, 'utf8');
 const caminhoHtmlEmail = path.join(__dirname, '..', 'utils', 'certificadoContratado.html');
 const htmlEmailBase = fs.readFileSync(caminhoHtmlEmail, 'utf8');
 
+const caminhoArquivoContratos = path.join(__dirname, '..', 'data', 'contratosEfetivos.json');
+
+if (!fs.existsSync(path.dirname(caminhoArquivoContratos))) {
+    fs.mkdirSync(path.dirname(caminhoArquivoContratos), { recursive: true });
+}
+
 const gerarHtmlErro = (id) => {
     return htmlBase.replace('{{ID}}', id);
 };
@@ -135,6 +141,22 @@ function validarLuhn(numero) {
     }
     return (soma % 10) === 0;
 }
+
+const salvarContrato = (novoContrato) => {
+    let contratos = [];
+
+    if (fs.existsSync(caminhoArquivoContratos)) {
+        const conteudo = fs.readFileSync(caminhoArquivoContratos, 'utf8');
+        contratos = JSON.parse(conteudo || "[]");
+    }
+
+    contratos.push({
+        dataRegistro: new Date().toISOString(),
+        ...novoContrato
+    });
+
+    fs.writeFileSync(caminhoArquivoContratos, JSON.stringify(contratos, null, 2), 'utf8');
+};
 
 exports.getCatalogo = (req, res) => {
     console.log("entrou no catalogos")
@@ -317,6 +339,25 @@ exports.contratarSeguro = async (req, res) => {
     const isContratanteValido = validarContratanteSeguroVida(dadosPessoais);
     if (!isContratanteValido.status) return res.status(400).json({ message: isContratanteValido.message });
 
+    let contratos = [];
+    if (fs.existsSync(caminhoArquivoContratos)) {
+        const conteudo = fs.readFileSync(caminhoArquivoContratos, 'utf8');
+        contratos = JSON.parse(conteudo || "[]");
+    }
+
+    const contratoExistente = contratos.find(c =>
+        c.contratante.cpf === dadosPessoais.cpf &&
+        c.planoContratado.planId === planId
+    );
+
+    if (contratoExistente) {
+        console.warn(`[Segurina] Bloqueio de duplicidade: CPF ${dadosPessoais.cpf} tentou contratar ${planId} novamente.`);
+
+        return res.status(400).json({
+            message: `Ops! Identificamos que você já possui o plano ${contratoExistente.planoContratado.name} ativo para este CPF. 🛡️ No momento, não é possível contratar a mesma proteção em duplicidade.`
+        });
+    }
+
     const isPagamentoValido = validarFormaDePagamento(pagamento, dadosPessoais.cpf);
     if (!isPagamentoValido.status) return res.status(400).json({ message: isPagamentoValido.message });
 
@@ -337,36 +378,55 @@ exports.contratarSeguro = async (req, res) => {
             console.log(`[Segurina] PDF Gerado: ${resultado.nomeArquivo}`);
             console.log(`[Segurina] URL de Consulta: ${resultado.urlAcesso}`);
 
-            const urlCallback = process.env.LINK_CALLBACK; 
+            salvarContrato({
+                contratante: {
+                    nome: dadosPessoais.nome,
+                    cpf: dadosPessoais.cpf,
+                    email: dadosPessoais.email,
+                    telefone: dadosPessoais.telefone
+                },
+                planoContratado: plano,
+                detalhesCertificado: {
+                    numero: resultado.numeroCertificado,
+                    arquivo: resultado.nomeArquivo,
+                    pathLocal: resultado.path
+                },
+                bemSegurado: dadosBem
+            });
+
+            console.log(`[Segurina] Contrato de ${dadosPessoais.nome} (CPF: ${dadosPessoais.cpf}) persistido com sucesso.`);
+
+            const urlCallback = process.env.LINK_CALLBACK;
 
             const payloadCallback = {
                 idDatabase: process.env.ID_DATABASE,
-                idCallback: sessionId, 
+                idCallback: sessionId,
                 answer: {
                     session_id: sessionId,
                     status_contratacao: "SUCESSO",
                     numero_apolice: String(resultado.numeroCertificado),
                     certificado_base: resultado.base64,
                     nome_seguro: plano.name,
-                    email_usuario: dadosPessoais.email, 
+                    email_usuario: dadosPessoais.email,
                     cpf_contratante: dadosPessoais.cpf
                 }
             };
 
             const configHeaders = {
                 headers: {
-                    'Authorization': process.env.AUTHORIZATION, 
-                    'idSocialNetwork': process.env.ID_SOCIAL_NETWORK,  
+                    'Authorization': process.env.AUTHORIZATION,
+                    'idSocialNetwork': process.env.ID_SOCIAL_NETWORK,
                     'Content-Type': 'application/json'
                 }
             };
+            if (process.env.AMBIENTE) {
+                await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * (40000 - 10000 + 1)) + 10000));
+                await axios.post(urlCallback, payloadCallback, configHeaders);
+                console.log(`[Segurina] Callback enviado com sucesso para apólice ${resultado.numeroCertificado}`);
+                console.log("[Segurina] Callback enviado. Aguardando 5s para disparar e-mail...");
+            }
 
-            await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * (40000 - 10000 + 1)) + 10000));
-            await axios.post(urlCallback, payloadCallback, configHeaders);
 
-            console.log(`[Segurina] Callback enviado com sucesso para apólice ${resultado.numeroCertificado}`);
-
-            console.log("[Segurina] Callback enviado. Aguardando 5s para disparar e-mail...");
             await new Promise(resolve => setTimeout(resolve, 5000));
 
             let htmlFinal = htmlEmailBase
