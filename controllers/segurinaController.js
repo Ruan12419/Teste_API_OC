@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require("fs");
 const path = require('path');
 const PDFDocument = require('pdfkit');
@@ -301,7 +302,7 @@ const gerarESalvarCertificado = async (dadosContratante, plano, dadosSeguro) => 
 
 exports.contratarSeguro = async (req, res) => {
     const { typeId, planId } = req.params;
-    const { dadosPessoais, pagamento, dadosBem, endereco } = req.body;
+    const { dadosPessoais, pagamento, dadosBem, endereco, sessionId } = req.body;
 
     const verificaParametros = temParametros(typeId, planId);
     if (!verificaParametros.status) return res.status(400).json({ message: verificaParametros.message });
@@ -332,17 +333,37 @@ exports.contratarSeguro = async (req, res) => {
 
             const resultado = await gerarESalvarCertificado(dadosPessoais, plano, { dadosBem, endereco });
 
-            // await axios.post('URL_CALLBACK_DO_BOT', {
-            //     status_contratacao: "SUCESSO",
-            //     numero_apolice: resultado.numeroCertificado,
-            //     certificado_base64: resultado.base64,
-            //     nome_seguro: plano.name,
-            //     email_usuario: dadosPessoais.email
-            // });
-
             console.log(`[Segurina] PDF Gerado: ${resultado.nomeArquivo}`);
             console.log(`[Segurina] URL de Consulta: ${resultado.urlAcesso}`);
-            
+
+            const urlCallback = process.env.LINK_CALLBACK; 
+
+            const payloadCallback = {
+                idDatabase: process.env.ID_DATABASE,
+                idCallback: sessionId, 
+                answer: {
+                    session_id: sessionId,
+                    status_contratacao: "SUCESSO",
+                    numero_apolice: String(resultado.numeroCertificado),
+                    certificado_base: resultado.base64,
+                    nome_seguro: plano.name,
+                    email_usuario: dadosPessoais.email
+                }
+            };
+
+            const configHeaders = {
+                headers: {
+                    'Authorization': process.env.AUTHORIZATION, 
+                    'idSocialNetwork': process.env.ID_SOCIAL_NETWORK,  
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * (40000 - 10000 + 1)) + 10000));
+            await axios.post(urlCallback, payloadCallback, configHeaders);
+
+            console.log(`[Segurina] Callback enviado com sucesso para apólice ${resultado.numeroCertificado}`);
+
             console.log("[Segurina] Callback enviado. Aguardando 5s para disparar e-mail...");
             await new Promise(resolve => setTimeout(resolve, 5000));
 
