@@ -478,3 +478,28 @@ exports.mostrarCertificado = (req, res) => {
     const stream = fs.createReadStream(caminhoArquivo);
     stream.pipe(res);
 };
+
+
+exports.getContratos = (req, res) => {
+    const { cpf } = req.params;
+    let contratos = [];
+
+    if (fs.existsSync(caminhoArquivoContratos)) {
+        const conteudo = fs.readFileSync(caminhoArquivoContratos, 'utf8');
+        contratos = JSON.parse(conteudo || "[]");
+    }
+
+    if (!cpf) {
+        return res.status(400).json({ message: "O CPF informado é inválido." });
+    }
+
+    const contratosExistentes = contratos.filter(c =>
+        c.contratante.cpf === cpf
+    );
+
+    if (!contratosExistentes)
+        return res.status(200).json({ data: { contratosExistentes: {} }, message: `O cliente ainda não possui contratos.` });
+
+    return res.status(200).json({ data: { contratosExistentes: contratosExistentes } });
+
+};

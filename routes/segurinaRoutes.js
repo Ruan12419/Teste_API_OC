@@ -11,4 +11,7 @@ router.post("/contrato/:typeId/:planId", controller.contratarSeguro);
 
 router.get('/certificado/:id', controller.mostrarCertificado);
 
+router.get('/contratos/:cpf', controller.getContratos);
+
+
 module.exports = router;
