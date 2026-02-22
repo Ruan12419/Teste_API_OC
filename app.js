@@ -3,6 +3,7 @@ const fs = require('fs');
 const pagamentoRoutes = require('./routes/pagamentoRoutes');
 const clinicaRoutes = require('./routes/clinicaRoutes');
 const segurinaRoutes = require('./routes/segurinaRoutes');
+const healthCheckRoutes = require('./routes/healthCheck');
 
 const swaggerDocs = require("./swagger/swaggerDocs");
 
@@ -33,6 +34,7 @@ global.catalogo = JSON.parse(fs.readFileSync(catalogoPath, 'utf8'));
 app.use('/', pagamentoRoutes);
 app.use('/clinica/', clinicaRoutes);
 app.use('/segurina/', segurinaRoutes);
+app.use('/healthcheck/', healthCheckRoutes);
 
 swaggerDocs(app);
 
