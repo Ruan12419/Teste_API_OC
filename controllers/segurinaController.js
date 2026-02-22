@@ -348,7 +348,8 @@ exports.contratarSeguro = async (req, res) => {
                     numero_apolice: String(resultado.numeroCertificado),
                     certificado_base: resultado.base64,
                     nome_seguro: plano.name,
-                    email_usuario: dadosPessoais.email
+                    email_usuario: dadosPessoais.email, 
+                    cpf_contratante: dadosPessoais.cpf
                 }
             };
 
