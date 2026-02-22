@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require('path');
 const PDFDocument = require('pdfkit');
 const QRCode = require('qrcode');
+const axios = require('axios');
 const transporter = require("../utils/configNodeMailer");
 
 const caminhoHtmlErro = path.join(__dirname, '..', 'utils', 'certificadoNaoEncontrado.html');
