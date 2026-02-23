@@ -389,7 +389,7 @@ exports.contratarSeguro = async (req, res) => {
                 detalhesCertificado: {
                     numero: resultado.numeroCertificado,
                     arquivo: resultado.nomeArquivo,
-                    pathLocal: resultado.path
+                    pathLocal: `https://teste-api-oc.onrender.com/segurina/certificado/${resultado.numeroCertificado}`,
                 },
                 bemSegurado: dadosBem
             });
