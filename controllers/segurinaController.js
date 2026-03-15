@@ -405,7 +405,7 @@ exports.contratarSeguro = async (req, res) => {
                     session_id: sessionId,
                     status_contratacao: "SUCESSO",
                     numero_apolice: String(resultado.numeroCertificado),
-                    certificado_base: resultado.base64,
+                    certificado_base: `https://teste-api-oc.onrender.com/segurina/certificado/${resultado.numeroCertificado}`,
                     nome_seguro: plano.name,
                     email_usuario: dadosPessoais.email,
                     cpf_contratante: dadosPessoais.cpf
@@ -452,7 +452,7 @@ exports.contratarSeguro = async (req, res) => {
             console.log({
                 status_contratacao: "SUCESSO",
                 numero_apolice: resultado.numeroCertificado,
-                certificado_base64: resultado.base64,
+                certificado_base64: `https://teste-api-oc.onrender.com/segurina/certificado/${resultado.numeroCertificado}`,
                 nome_seguro: plano.name,
                 email_usuario: dadosPessoais.email
             });
