@@ -610,3 +610,34 @@ exports.abrirSinistro = async (req, res) => {
         estimatedSLA: "48 horas úteis"
     });
 };
+
+exports.getSinistrosPorCpf = (req, res) => {
+    const { cpf } = req.params;
+
+    if (!cpf) {
+        return res.status(400).json({ message: "O CPF é obrigatório para realizar a consulta de sinistros." });
+    }
+
+    let sinistros = [];
+
+    if (fs.existsSync(caminhoArquivoSinistros)) {
+        const conteudo = fs.readFileSync(caminhoArquivoSinistros, 'utf8');
+        sinistros = JSON.parse(conteudo || "[]");
+    }
+
+    const sinistrosDoCliente = sinistros.filter(s => s.segurado && s.segurado.cpf === cpf);
+
+    if (sinistrosDoCliente.length === 0) {
+        return res.status(200).json({ 
+            data: [], 
+            message: "Nenhum sinistro encontrado para este CPF." 
+        });
+    }
+
+    sinistrosDoCliente.sort((a, b) => new Date(b.dataAbertura) - new Date(a.dataAbertura));
+
+    return res.status(200).json({ 
+        data: sinistrosDoCliente,
+        message: "Sinistros recuperados com sucesso."
+    });
+};

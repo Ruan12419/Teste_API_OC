@@ -15,5 +15,7 @@ router.get('/contratos/:cpf', controller.getContratos);
 
 router.post('/sinistros', controller.abrirSinistro);
 
+router.get('/sinistros/:cpf', controller.getSinistrosPorCpf);
+
 
 module.exports = router;
