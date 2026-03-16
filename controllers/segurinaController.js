@@ -14,8 +14,14 @@ const htmlEmailBase = fs.readFileSync(caminhoHtmlEmail, 'utf8');
 
 const caminhoArquivoContratos = path.join(__dirname, '..', 'data', 'contratosEfetivos.json');
 
+const caminhoArquivoSinistros = path.join(__dirname, '..', 'data', 'sinistrosAbertos.json');
+
 if (!fs.existsSync(path.dirname(caminhoArquivoContratos))) {
     fs.mkdirSync(path.dirname(caminhoArquivoContratos), { recursive: true });
+}
+
+if (!fs.existsSync(path.dirname(caminhoArquivoSinistros))) {
+    fs.mkdirSync(path.dirname(caminhoArquivoSinistros), { recursive: true });
 }
 
 const gerarHtmlErro = (id) => {
@@ -140,6 +146,41 @@ function validarLuhn(numero) {
         deveDobrar = !deveDobrar;
     }
     return (soma % 10) === 0;
+}
+
+function validarDocumentosPorSeguro(planId, documentosEnviados = []) {
+    const docTypes = documentosEnviados.map(d => d.type.toLowerCase());
+    const id = planId.toLowerCase();
+    let documentosFaltantes = [];
+
+    if (id.includes('auto')) {
+        if (!docTypes.some(t => t.includes('foto'))) documentosFaltantes.push('Foto do Veículo');
+    } 
+    else if (id.includes('res') || id.includes('residencia')) {
+        if (!docTypes.some(t => t.includes('foto'))) documentosFaltantes.push('Fotos do Dano');
+        if (!docTypes.some(t => t.includes('comprovante') || t.includes('endereço'))) documentosFaltantes.push('Comprovante de Endereço');
+    }
+    else if (id.includes('cel') || id.includes('smart')) {
+        if (!docTypes.some(t => t.includes('boletim') || t.includes('bo'))) documentosFaltantes.push('Boletim de Ocorrência');
+    }
+    else if (id.includes('vida')) {
+        if (!docTypes.some(t => t.includes('certidão') || t.includes('óbito'))) documentosFaltantes.push('Certidão de Óbito');
+    }
+    else if (id.includes('ap') || id.includes('acidente')) {
+        if (!docTypes.some(t => t.includes('laudo') || t.includes('relatório') || t.includes('comprovante'))) documentosFaltantes.push('Laudo/Relatório Médico');
+    }
+    else if (id.includes('pet')) {
+        if (!docTypes.some(t => t.includes('nota') || t.includes('laudo') || t.includes('prontuário'))) documentosFaltantes.push('Nota Fiscal ou Prontuário Veterinário');
+    }
+
+    if (documentosFaltantes.length > 0) {
+        return { 
+            status: false, 
+            message: `Para este tipo de seguro, estão faltando os seguintes documentos obrigatórios: ${documentosFaltantes.join(', ')}.` 
+        };
+    }
+
+    return { status: true };
 }
 
 const salvarContrato = (novoContrato) => {
@@ -502,4 +543,70 @@ exports.getContratos = (req, res) => {
 
     return res.status(200).json({ data: { contratosExistentes: contratosExistentes } });
 
+};
+
+exports.abrirSinistro = async (req, res) => {
+    const { policyNumber, incidentDate, description, documents, thirdPartyInfo, additionalInfo } = req.body;
+
+    if (!policyNumber || !incidentDate || !description) {
+        return res.status(400).json({ 
+            message: "Os campos 'policyNumber', 'incidentDate' e 'description' são obrigatórios." 
+        });
+    }
+
+    let contratos = [];
+    if (fs.existsSync(caminhoArquivoContratos)) {
+        contratos = JSON.parse(fs.readFileSync(caminhoArquivoContratos, 'utf8') || "[]");
+    }
+
+    const contratoAtivo = contratos.find(c => String(c.detalhesCertificado.numero) === String(policyNumber));
+
+    if (!contratoAtivo) {
+        return res.status(404).json({ 
+            message: `Apólice/Certificado número ${policyNumber} não encontrado no sistema ou inativo.` 
+        });
+    }
+
+    const planId = contratoAtivo.planoContratado.planId;
+    const validacaoDocs = validarDocumentosPorSeguro(planId, documents);
+    
+    if (!validacaoDocs.status) {
+        return res.status(400).json({ message: validacaoDocs.message });
+    }
+
+    const numeroProtocolo = `SIN-${Date.now()}`;
+    const novoSinistro = {
+        protocolo: numeroProtocolo,
+        dataAbertura: new Date().toISOString(),
+        status: "EM_ANALISE",
+        tipoSeguro: planId,
+        segurado: {
+            nome: contratoAtivo.contratante.nome,
+            cpf: contratoAtivo.contratante.cpf
+        },
+        dadosEvento: {
+            policyNumber,
+            incidentDate,
+            description,
+            documents: documents || [],
+            thirdPartyInfo: thirdPartyInfo || null, 
+            additionalInfo: additionalInfo || null  
+        }
+    };
+
+    let sinistros = [];
+    if (fs.existsSync(caminhoArquivoSinistros)) {
+        sinistros = JSON.parse(fs.readFileSync(caminhoArquivoSinistros, 'utf8') || "[]");
+    }
+
+    sinistros.push(novoSinistro);
+    fs.writeFileSync(caminhoArquivoSinistros, JSON.stringify(sinistros, null, 2), 'utf8');
+
+    console.log(`[Segurina] Sinistro ${numeroProtocolo} aberto para a apólice ${policyNumber}.`);
+    return res.status(201).json({
+        status: "UNDER_ANALYSIS",
+        protocol: numeroProtocolo,
+        message: "Sinistro registrado com sucesso. Os documentos entraram em fase de análise.",
+        estimatedSLA: "48 horas úteis"
+    });
 };

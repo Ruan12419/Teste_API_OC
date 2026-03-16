@@ -1,0 +1,102 @@
+[
+  {
+    "protocolo": "SIN-1773609906646",
+    "dataAbertura": "2026-03-15T21:25:06.646Z",
+    "status": "EM_ANALISE",
+    "tipoSeguro": "RES-ESSENCIAL-2490",
+    "segurado": {
+      "nome": "Ruan Silva",
+      "cpf": "98765432100"
+    },
+    "dadosEvento": {
+      "policyNumber": "987654321",
+      "incidentDate": "2026-03-10T18:45:00Z",
+      "description": "Forte chuva com queda de raio na região causou um curto-circuito, queimando a geladeira e a televisão da sala.",
+      "documents": [
+        {
+          "type": "Fotos do Dano",
+          "url": "https://storage.segurina.com/claims/res_foto_tv.jpg"
+        },
+        {
+          "type": "Comprovante de Endereço",
+          "url": "https://storage.segurina.com/claims/res_conta_luz.pdf"
+        },
+        {
+          "type": "Orçamento de Reparo",
+          "url": "https://storage.segurina.com/claims/res_orcamento.pdf"
+        }
+      ],
+      "thirdPartyInfo": null,
+      "additionalInfo": {
+        "tipoImovel": "Casa",
+        "comodoAfetado": "Sala e Cozinha",
+        "bombeirosAcionados": false
+      }
+    }
+  },
+  {
+    "protocolo": "SIN-1773609957290",
+    "dataAbertura": "2026-03-15T21:25:57.290Z",
+    "status": "EM_ANALISE",
+    "tipoSeguro": "CEL-VIP-5990",
+    "segurado": {
+      "nome": "Ruan Silva",
+      "cpf": "98765432100"
+    },
+    "dadosEvento": {
+      "policyNumber": "456789123",
+      "incidentDate": "2026-03-14T20:30:00Z",
+      "description": "Fui abordado por dois assaltantes armados no ponto de ônibus. Levaram minha mochila com o celular.",
+      "documents": [
+        {
+          "type": "Boletim de Ocorrência",
+          "url": "https://storage.segurina.com/claims/cel_bo_9988.pdf"
+        },
+        {
+          "type": "Nota Fiscal",
+          "url": "https://storage.segurina.com/claims/cel_nf_iphone.pdf"
+        }
+      ],
+      "thirdPartyInfo": null,
+      "additionalInfo": {
+        "imei": "358912345678901",
+        "bloqueioRemotoRealizado": true,
+        "localDoRoubo": "Ponto de ônibus da Avenida Central"
+      }
+    }
+  },
+  {
+    "protocolo": "SIN-1773610009291",
+    "dataAbertura": "2026-03-15T21:26:49.291Z",
+    "status": "EM_ANALISE",
+    "tipoSeguro": "VIDA-100K-5990",
+    "segurado": {
+      "nome": "Ruan Silva",
+      "cpf": "98765432100"
+    },
+    "dadosEvento": {
+      "policyNumber": "321654987",
+      "incidentDate": "2026-03-02T05:15:00Z",
+      "description": "Falecimento do segurado por complicações cardíacas (infarto agudo do miocárdio) durante a madrugada.",
+      "documents": [
+        {
+          "type": "Certidão de Óbito",
+          "url": "https://storage.segurina.com/claims/vida_certidao.pdf"
+        },
+        {
+          "type": "Documento do Beneficiário",
+          "url": "https://storage.segurina.com/claims/vida_cnh_beneficiario.pdf"
+        },
+        {
+          "type": "Laudo Médico",
+          "url": "https://storage.segurina.com/claims/vida_laudo_hospital.pdf"
+        }
+      ],
+      "thirdPartyInfo": null,
+      "additionalInfo": {
+        "relacaoBeneficiario": "Cônjuge",
+        "hospital": "Hospital Municipal Central"
+      }
+    }
+  }
+]

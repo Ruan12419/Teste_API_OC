@@ -13,5 +13,7 @@ router.get('/certificado/:id', controller.mostrarCertificado);
 
 router.get('/contratos/:cpf', controller.getContratos);
 
+router.post('/sinistros', controller.abrirSinistro);
+
 
 module.exports = router;
