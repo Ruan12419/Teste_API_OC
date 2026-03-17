@@ -538,7 +538,31 @@ exports.getContratos = (req, res) => {
         c.contratante.cpf === cpf
     );
 
-    if (!contratosExistentes)
+    if (!contratosExistentes.length > 0)
+        return res.status(200).json({ data: { contratosExistentes: {} }, message: `O cliente ainda não possui contratos.` });
+
+    return res.status(200).json({ data: { contratosExistentes: contratosExistentes } });
+
+};
+
+exports.getContratosPorTelefone = (req, res) => {
+    const { telefone } = req.params;
+    let contratos = [];
+
+    if (fs.existsSync(caminhoArquivoContratos)) {
+        const conteudo = fs.readFileSync(caminhoArquivoContratos, 'utf8');
+        contratos = JSON.parse(conteudo || "[]");
+    }
+
+    if (!telefone) {
+        return res.status(400).json({ message: "O telefone informado é inválido." });
+    }
+
+    const contratosExistentes = contratos.filter(c =>
+        c.contratante.telefone === telefone
+    );
+
+    if (!contratosExistentes.length > 0)
         return res.status(200).json({ data: { contratosExistentes: {} }, message: `O cliente ainda não possui contratos.` });
 
     return res.status(200).json({ data: { contratosExistentes: contratosExistentes } });
