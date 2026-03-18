@@ -424,7 +424,8 @@ exports.contratarSeguro = async (req, res) => {
                     nome: dadosPessoais.nome,
                     cpf: dadosPessoais.cpf,
                     email: dadosPessoais.email,
-                    telefone: dadosPessoais.telefone
+                    telefone: dadosPessoais.telefone, 
+                    nascimento: dadosPessoais.nascimento,
                 },
                 planoContratado: plano,
                 detalhesCertificado: {
@@ -547,26 +548,90 @@ exports.getContratos = (req, res) => {
 
 exports.getContratosPorTelefone = (req, res) => {
     const { telefone } = req.params;
-    let contratos = [];
-
-    if (fs.existsSync(caminhoArquivoContratos)) {
-        const conteudo = fs.readFileSync(caminhoArquivoContratos, 'utf8');
-        contratos = JSON.parse(conteudo || "[]");
-    }
 
     if (!telefone) {
         return res.status(400).json({ message: "O telefone informado é inválido." });
     }
 
-    const contratosExistentes = contratos.filter(c =>
-        c.contratante.telefone === telefone
-    );
+    let contratos = [];
+    if (fs.existsSync(caminhoArquivoContratos)) {
+        const conteudo = fs.readFileSync(caminhoArquivoContratos, 'utf8');
+        contratos = JSON.parse(conteudo || "[]");
+    }
 
-    if (!contratosExistentes.length > 0)
-        return res.status(200).json({ data: { contratosExistentes: {} }, message: `O cliente ainda não possui contratos.` });
+    const contratosExistentes = contratos.filter(c => c.contratante.telefone === telefone);
 
-    return res.status(200).json({ data: { contratosExistentes: contratosExistentes } });
+    if (contratosExistentes.length === 0) {
+        return res.status(200).json({ 
+            data: { contratosExistentes: [], upSell: [], crossSell: [] }, 
+            message: `O cliente ainda não possui contratos.` 
+        });
+    }
+    
+    const upsellNames = new Set();
+    const categoriasAtivas = new Set();
 
+    const planosJaContratadosIds = new Set(contratosExistentes.map(c => c.planoContratado.planId));
+
+    contratosExistentes.forEach(c => {
+        if (c.planoContratado.upsellRecommendations) {
+            c.planoContratado.upsellRecommendations.forEach(nome => upsellNames.add(nome));
+        }
+
+        const id = c.planoContratado.planId || "";
+        if (id.includes("AUTO")) categoriasAtivas.add("AUTO");
+        if (id.includes("RES")) categoriasAtivas.add("RESIDENCIAL");
+        if (id.includes("VIDA")) categoriasAtivas.add("VIDA");
+        if (id.includes("PET")) categoriasAtivas.add("PET");
+        if (id.includes("AP")) categoriasAtivas.add("ACIDENTES_PESSOAIS");
+        if (id.includes("CEL")) categoriasAtivas.add("CELULAR");
+    });
+
+    let todosOsPlanos = [];
+    if (typeof catalogo !== 'undefined' && catalogo.insuranceTypes) {
+        todosOsPlanos = catalogo.insuranceTypes.flatMap(type => type.plans);
+    }
+
+    const upSellsComId = [];
+    upsellNames.forEach(nomeUpsell => {
+        const planoEncontrado = todosOsPlanos.find(p => p.name === nomeUpsell);
+
+        if (planoEncontrado && !planosJaContratadosIds.has(planoEncontrado.planId)) {
+            upSellsComId.push({
+                name: planoEncontrado.name,
+                planId: planoEncontrado.planId
+            });
+        }
+    });
+
+    const crossSellsComId = [];
+    
+    const adicionarCrossSell = (nomePlanoBasico) => {
+        const plano = todosOsPlanos.find(p => p.name === nomePlanoBasico);
+        
+        if (plano && !planosJaContratadosIds.has(plano.planId)) {
+            crossSellsComId.push({ name: plano.name, planId: plano.planId });
+        }
+    };
+
+    if (categoriasAtivas.has("VIDA") && !categoriasAtivas.has("ACIDENTES_PESSOAIS")) {
+        adicionarCrossSell("AP Essencial"); 
+    }
+    if (categoriasAtivas.has("RESIDENCIAL") && !categoriasAtivas.has("PET")) {
+        adicionarCrossSell("Pet Básico");
+    }
+    if (categoriasAtivas.has("AUTO") && !categoriasAtivas.has("VIDA")) {
+        adicionarCrossSell("Vida Essencial 50K");
+    }
+
+    return res.status(200).json({ 
+        data: { 
+            contratosExistentes: contratosExistentes,
+            upSell: upSellsComId,
+            crossSell: crossSellsComId
+        },
+        message: "Contratos e recomendações carregados com sucesso."
+    });
 };
 
 exports.abrirSinistro = async (req, res) => {
